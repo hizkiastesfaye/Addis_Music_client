@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import {css} from "@emotion/react"
 import { ThemeProvider } from "@emotion/react";
 import { useState } from "react";
+import { DefaultTheme } from 'styled-components';
 
 const Button = styled.button`
     background-color:blue;
@@ -48,8 +49,16 @@ const Togglee = styled.button<Allprops>`
     background-color: ${(props)=>(props.isActive ? 'red' : 'green')}
 
     `;
+ 
 
-const theme = {
+interface CustomTheme extends DefaultTheme {
+    colors: {
+    primary: string;
+    secondary: string;
+    background: string;
+    };
+}
+const theme: CustomTheme = {
     colors:{
         primary: '#6200ea',
         secondary:'#03dac6',
@@ -94,5 +103,6 @@ export default function Trytry(){
         <ThemeProvider theme={theme}>
             <Div1>Your app conent here</Div1>
         </ThemeProvider>
+
     </>
 }
