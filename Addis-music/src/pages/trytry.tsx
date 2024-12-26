@@ -50,7 +50,6 @@ const Togglee = styled.button<Allprops>`
 
     `;
  
-
 interface CustomTheme extends DefaultTheme {
     colors: {
     primary: string;

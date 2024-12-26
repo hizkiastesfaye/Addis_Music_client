@@ -4,12 +4,9 @@ import styled from "@emotion/styled";
 import '@fontsource/jaini';
 import search from "../../icons/search.png";
 import filter from "../../icons/filter.png";
-import { useState } from "react";
-
-
-const Nav = styled.div`
-
-`;
+import { useDispatch,useSelector } from "react-redux";
+import { RootState } from "../../store/indexx";
+import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 
 const Container = styled.div`
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
@@ -83,7 +80,7 @@ const DivSearch2= styled.div`
     display:flex;
     align-items:center;
     gap:5px;
-    font-size:18px;
+
 
     div{
         display:flex;
@@ -101,6 +98,13 @@ const DivSearch2= styled.div`
                 height:25px;
             }
         }
+    }
+    
+    p{
+        font-size:18px;
+        height:30px;
+        width:40%;
+        padding-left:10%;
     }
 `;
 const DropFilter=styled.div`
@@ -134,17 +138,19 @@ const DropFilter=styled.div`
 
 
 export default function Header(){
-    const [isDropMenu,setIsDropMenu] = useState(false)
+    const dispatch = useDispatch()
+    const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const handleDropFilter=()=>{
-        setIsDropMenu(!isDropMenu)
+        if(isDropMenu){
+            dispatch(dropMenuFalse())
+            console.log(isDropMenu)
+        }
+        else{
+            dispatch(dropMenuTrue())
+        }
     }
     return (
         <>
-        <Nav onClick={()=>{
-            if(isDropMenu === true){
-                setIsDropMenu(false)
-            }
-        }}>
             <Container>
                 <h2>Addis Music</h2>
                 <DivSearch>
@@ -155,10 +161,10 @@ export default function Header(){
                         <input type="text" placeholder="Search for Music" />
                     </DivSearch1>
                     <DivSearch2>
-                        <button onClick={()=>setIsDropMenu(!isDropMenu)}>
+                        <button onClick={handleDropFilter}>
                             <img src={filter} alt="search icons" />
                         </button>
-                        <p>search by genre</p>
+                        <p>artist</p>
                     </DivSearch2>
                 </DivSearch>
             </Container>
@@ -172,7 +178,6 @@ export default function Header(){
                 </ul>
             </DropFilter>
             }
-        </Nav>
         </>
     );
 }

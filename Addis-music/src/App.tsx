@@ -5,33 +5,45 @@ import Header from "./common/pages/header"
 import HeaderSimu from "./common/pages/headerSimu"
 import Trytry from "./pages/trytry"
 import Toolkits from "./pages/toolkit"
-import store from '../src/store/indexx'
-import { Provider } from "react-redux"
+// import store from '../src/store/indexx'
+// import { Provider } from "react-redux"
 import SagaSaga from "./pages/sagasaga"
+import Footer from "./common/pages/footer"
+import { useDispatch,useSelector } from "react-redux"
+import { dropMenuFalse } from "./store/dropDownFilter"
+import { RootState } from "./store/indexx";
+
 
 function App() {
+  const dispatch =useDispatch()
+  const isdropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
+
   return (
-    <>
-    <Routes>
-      <Route path="music" element={<>
-        <Header />
-        <HomeMusic />
-        </>} />
-      <Route path="try" element={<>
-        <HeaderSimu />
-        <Trytry /></>
-      } />
-      <Route path="tools" element={
-        <Provider store={store}>
-        <Toolkits />
-        </Provider>} />
-        <Route path="saga" element={
-          <Provider store={store}>
-          <SagaSaga /> 
-          </Provider>
-          } />
-    </Routes>
-    </>
+    <div onClick={()=>{
+      if(isdropMenu){
+        dispatch(dropMenuFalse())
+      }
+      }
+      }>
+      <Routes>
+        <Route path="music" element={<>
+          <Header />
+          <HomeMusic />
+          <Footer />
+          </>} />
+        <Route path="try" element={<>
+          <HeaderSimu />
+          {/* <Header /> */}
+          <Trytry /></>
+        } />
+        <Route path="tools" element={
+          <Toolkits />
+        } />
+          <Route path="saga" element={
+            <SagaSaga /> 
+            } />
+      </Routes>
+    </div>
   )
 }
 

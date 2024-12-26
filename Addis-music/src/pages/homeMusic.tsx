@@ -1,11 +1,18 @@
 /** @jsxImportSource @emotion/react */
+import styled from '@emotion/styled'
 export default function HomeMusic(){
     return (
-        <>
-            <div>
-                <p>This is home page </p>
-            </div>
-        </>
+        <div style={{minHeight:'60vh'}}>
+        <p>This is home music.</p>
+            {/* <MainBody>
+                <MusicList>
+
+                </MusicList>
+                <MusicForm>
+
+                </MusicForm>
+            </MainBody> */}
+        </div>
     );
 }
 

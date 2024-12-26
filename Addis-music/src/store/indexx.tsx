@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slice";
+import DropMenuReducer from './dropDownFilter'
 import createSagaMiddleware from "redux-saga";
 import postsReducer from "./postSlice";
 import rootSaga from "./sagas"
@@ -10,6 +11,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
     reducer:{
         counter: counterReducer,
+        isDropFilter: DropMenuReducer,
         posts: postsReducer,
     },
     middleware: (getDefaultMiddleware)=>getDefaultMiddleware({thunk:false}).concat(sagaMiddleware)
