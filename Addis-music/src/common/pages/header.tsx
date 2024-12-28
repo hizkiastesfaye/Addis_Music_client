@@ -7,6 +7,7 @@ import filter from "../../icons/filter.png";
 import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
+import { useState } from "react";
 
 const Container = styled.div`
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
@@ -66,6 +67,7 @@ const Image1 = styled.div`
 
     &:hover{
         cursor:pointer;
+        background-color:#D7F4DB;
         img{
             width:25px;
             height:25px;
@@ -81,19 +83,23 @@ const DivSearch2= styled.div`
     align-items:center;
     gap:5px;
     padding-left:10px;
+    // background-color:red;
 
-
-    div{
+    button{
+        height:35px;
         display:flex;
         align-items:center;
         width:60px;
-
+        border:0;
+        background-color:white;
         img{
             margin:0 auto;
-        }
+        };
         
         &:hover{
             cursor:pointer;
+            border:1px solid green;
+            background-color:#D7F4DB;
             img{
                 width:25px;
                 height:25px;
@@ -139,6 +145,7 @@ const DropFilter=styled.div`
 
 
 export default function Header(){
+    const [filterName,setFilterName] = useState('title')
     const dispatch = useDispatch()
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const handleDropFilter=()=>{
@@ -149,6 +156,9 @@ export default function Header(){
         else{
             dispatch(dropMenuTrue())
         }
+    }
+    const handleFilter=(name)=>{
+        setFilterName(name)
     }
     return (
         <>
@@ -165,17 +175,17 @@ export default function Header(){
                         <button onClick={handleDropFilter}>
                             <img src={filter} alt="search icons" />
                         </button>
-                        <p>artist</p>
+                        <p>{filterName}</p>
                     </DivSearch2>
                 </DivSearch>
             </Container>
             { isDropMenu &&
             <DropFilter>
                 <ul>
-                    <li>Title</li>
-                    <li>Album</li>
-                    <li>Artist</li>
-                    <li>Genre</li>
+                    <li onClick={()=>handleFilter('title')}>Title</li>
+                    <li onClick={()=>handleFilter('album')}>Album</li>
+                    <li onClick={()=>handleFilter('artist')}>Artist</li>
+                    <li onClick={()=>handleFilter('genre')}>Genre</li>
                 </ul>
             </DropFilter>
             }

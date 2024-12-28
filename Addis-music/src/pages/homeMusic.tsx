@@ -24,68 +24,76 @@ const MusicLists = styled.div`
 `;
 const MusicList = styled.div`
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
-    padding-bottom:5px;
-    margin-bottom:10px;
+    padding-bottom:2px;
+    margin-bottom:2px;
     border-bottom:1px solid rgba(0,0,0,0.1);
     border-right:1px solid rgba(0,0,0,0.1);
-    height:140px;
-    .arti_alb{
-        display:flex;
-        gap:5%;
-        justify-content:left;
-        p{
-            width:30%;
-        }
-    }
-    p{
-    font-size:20px;
-    color:#525252;
-    padding-left:5px
-    
-    }
-    .genre{
-        ;
-    }
-    .manage{
-        // background-color:blue;
-        display:flex;
-        justify-content:right;
-        padding-right:50px;
-        gap:50px;
-        .image{
-            // background-color:red;
-            width:10%;
-            display:flex;
-            align-items:center;
-            img{
-                width:20px;
-                height:20px;
-                right:2px;
-                margin:0 auto;
-                // background-color:yellow;
-            }
-            &:hover{
-                img{
-                    width:28px;
-                    height:28px;
-                }
-            }
-        }
-        button{
-            width:10%;
-            height:35px;
-            border:1px solid green;
-            border-radius:20px;
-            background-color:white;
+    height:90px;
+    display:flex;
+    justify-content:space-between;
 
-            color:green;
-            padding-left:20px;
-            padding-right:20px;
-            font-size:20px;
-            &:hover{
-                background-color:green;
-                color:white;
-                font-size:24px;
+    .list_atribute{
+        // background-color:yellow;
+        width:98%;
+        .arti_alb{
+            display:flex;
+            gap:5%;
+            justify-content:left;
+        }
+        p{
+            width:100%;
+            // background-color:red;
+            font-size:16px;
+            color:#525252;
+            padding-left:5px
+        }
+    };
+
+    .before_manage{
+        // background-color:brown;
+        width:10%;
+        padding-top:5px;
+
+        .manage{
+            // background-color:blue;
+            gap:50px;
+            .image{
+                margin-top:5px;
+                width:100%;
+                display:flex;
+                align-items:center;
+                height:40px;
+                img{
+                    width:20px;
+                    height:20px;
+                    right:2px;
+                    margin:0 auto;
+                    &:hover{
+                        width:28px;
+                        height:28px;
+                        box-shadow:0 2px 4px green;
+                    }
+                }
+
+            }
+            button{
+                margin-bottom:5px;
+                width:100px;
+                height:35px;
+                border:1px solid green;
+                border-radius:20px;
+                background-color:white;
+
+                color:green;
+                padding-left:20px;
+                padding-right:20px;
+                font-size:20px;
+                &:hover{
+                    cursor:pointer;
+                    background-color:green;
+                    color:white;
+                    font-size:24px;
+                }
             }
         }
     }
@@ -274,7 +282,29 @@ export default function HomeMusic(){
         artist:'the weekend',
         album:'AfterHour',
         genre:'Elecro-pop, Dark R&B'
-        }
+        },
+        {
+        id:5,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:6,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:7,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        
     ])
     const [indexValue,setIndexValue] = useState<number|null>(null)
     const [isEdit,setIsEdit] = useState<boolean>(false);
@@ -331,7 +361,12 @@ export default function HomeMusic(){
                 item.id === musicDatas.id? {...item,title:musicDatas.title} : item
             )
         )
-
+    }
+    const handleDelete=(music:MusicDataStatus)=>{
+        window.alert('are you sure?')
+        setMusicList((prevList)=>
+            prevList.filter((item)=>item.id !== music.id)
+        )
     }
     return (
         <div style={{minHeight:'60vh'}}>
@@ -341,22 +376,25 @@ export default function HomeMusic(){
                     { musiList.map((musiListt)=>(
                     <MusicList key={musiListt.id} 
                         onMouseEnter={()=>setIndexValue(musiListt.id)}
-                        onMouseLeave={()=>setIndexValue(null)}    
-                    >   
-                        <div className='arti_alb'>
-                            <p>title: {musiListt.title}</p>
-                            <p>artist: {musiListt.artist}</p>
-                            <p>album: {musiListt.album}</p>
-                        </div>
-                        <p className='genre'>genre: {musiListt.genre}</p>
-                        {indexValue === musiListt.id &&
-                        <div className='manage'>
-                            <button onClick={()=>handleEdit(musiListt)}>Edit</button>
-                            <div className='image'>
-                                <img src={deletee} alt='delete icon' />
+                        onMouseLeave={()=>setIndexValue(null)} >
+                        <div className='list_atribute'>
+                            <div className='arti_alb'>
+                                <p>title: {musiListt.title}</p>
+                                <p>artist: {musiListt.artist}</p>
+                                <p>album: {musiListt.album}</p>
                             </div>
+                            <p className='genre'>genre: {musiListt.genre}</p>
                         </div>
-                        }
+                        <div className='before_manage'>
+                            {indexValue === musiListt.id &&
+                            <div className='manage'>
+                                <button onClick={()=>handleEdit(musiListt)}>Edit</button>
+                                <div className='image'>
+                                    <img src={deletee} alt='delete icon' onClick={()=>handleDelete(musiListt)}/>
+                                </div>
+                            </div>
+                            }
+                        </div>
                     </MusicList>
                     ))}   
                 </MusicLists>
