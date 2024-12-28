@@ -1,5 +1,7 @@
 p{
     margin-bottom:5px;
+    font-weight:bold;
+    
 }
 .cont{
      background-color: red;
@@ -13,6 +15,5 @@ p{
      position:absolute;
      left:32;
      top:7;
-     font-weight:bold;
      
 }

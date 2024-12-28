@@ -80,6 +80,7 @@ const DivSearch2= styled.div`
     display:flex;
     align-items:center;
     gap:5px;
+    padding-left:10px;
 
 
     div{
@@ -129,9 +130,9 @@ const DropFilter=styled.div`
         height:32px;
 
         &:hover{
-            color:blue;
+            color:green;
             cursor:pointer;
-            border-bottom:1px solid blue;
+            border-bottom:1px solid green;
         }
     }
 `;
