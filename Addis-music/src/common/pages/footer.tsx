@@ -8,12 +8,14 @@ import tiktok from "../../icons/logo/tik-tok.png";
 import youtube from "../../icons/logo/youtube.png";
 
 const Footerr = styled.div`
-    postion:fixed;
-    bottom:0;
-    height:35vh;
-    background-color:#0B5213;
+    postion:absolute;
+    bottom:100px;
+    height:25vh;
+    background-color:#F1F1F1;
+    border-top: 2px solid green;
+
     .copyright{
-        color:white;
+        color:green;
         margin-top:2px;
         padding-left:50%;
     }
@@ -22,7 +24,7 @@ const FooterBody = styled.div`
 
     display:flex;
     justify-content:space-around;
-    color:white;
+    color:green;
     padding-left:2%;
     padding-right:2%;
     margin-bottom:15px;
@@ -30,7 +32,7 @@ const FooterBody = styled.div`
 const FooterDiv1=styled.div`
     
     .name {
-        background-color:white;
+        background-color:green;
         width:200px;
         border-radius:20px;
         padding-left:40px;
@@ -38,6 +40,7 @@ const FooterDiv1=styled.div`
             font-family:Jaini;
             font-size:18;
             color:#0B5213;
+            color:white;
         }
     }
     p{
@@ -58,12 +61,6 @@ const FooterDiv2=styled.div`
 `;
 const FooterDiv3=styled.div`
 
-`;
-const ExtraFooter=styled.div`
-    border-top:1px solid white;
-    display:flex;
-    justify-content:space-around;
-    color:white;
 `;
 export default function Footer(){
     return <>
@@ -98,11 +95,6 @@ export default function Footer(){
                 </ul>
             </FooterDiv3>
         </FooterBody>
-        <ExtraFooter>
-            <p>Conditions of use</p>
-            <p>Privacy</p>
-            <p>Your Ads Privacy Choices</p>
-        </ExtraFooter>
         <p className="copyright">2024, Addis Music</p>
         </Footerr>
     </>

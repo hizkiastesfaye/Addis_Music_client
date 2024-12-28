@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled'
 import deletee from '../icons/delete.png'
+import close from '../icons/close.png'
 import { useState } from 'react';
 
 const MainBody = styled.div`
@@ -10,7 +11,7 @@ const MainBody = styled.div`
 
 `;
 const MusicLists = styled.div`
-    width: 60%;
+    width: 100%;
     min-height: 70vh;
     max-height:100vh;
     overflow-y:scroll;
@@ -26,19 +27,24 @@ const MusicList = styled.div`
     padding-bottom:5px;
     margin-bottom:10px;
     border-bottom:1px solid rgba(0,0,0,0.1);
+    border-right:1px solid rgba(0,0,0,0.1);
     height:140px;
     .arti_alb{
         display:flex;
         gap:5%;
         justify-content:left;
+        p{
+            width:30%;
+        }
     }
     p{
     font-size:20px;
     color:#525252;
+    padding-left:5px
     
     }
     .genre{
-        padding-left:5%;
+        ;
     }
     .manage{
         // background-color:blue;
@@ -65,30 +71,21 @@ const MusicList = styled.div`
                 }
             }
         }
-        .edit{
+        button{
             width:10%;
             height:35px;
-            // background-color:red;
             border:1px solid green;
             border-radius:20px;
-            display:flex;
-            align-items:center;
-            p{
-                color:green;
-                margin: 0 auto;
-                padding-left:20px;
-                padding-right:20px;
-                // font-weight: bolder;
-                font-size:20px;
-                border-radius:20px;
-            }
+            background-color:white;
+
+            color:green;
+            padding-left:20px;
+            padding-right:20px;
+            font-size:20px;
             &:hover{
                 background-color:green;
-                p{
-                    color:white;
-                    font-size:24px;
-                    
-                }
+                color:white;
+                font-size:24px;
             }
         }
     }
@@ -103,68 +100,258 @@ const MusicList = styled.div`
             color:green;
         }
     }
-
-
 `;
+
 const MusicForm = styled.div`
+    width:40%;
+    padding-left:3%;
 
-`;
-export default function HomeMusic(){
-    const musiList = [{
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-    },
-    {
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-    },
-    {
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-    },
-    {
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-    },
-    {
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
+    .image_div{
+        width:100%;
+        display:flex;
+        justify-content:right;
+        padding-right:10px;
+        height:45px;
+        align-items:center;
+        button{
+            background-color:white;
+            border:1px solid green;
+            height:45px;
+            width:45px;
+            img{
+                height:25px;
+                width:25px;
+            }
+            &:hover{
+            border:2px solid green;
+                img{
+                    height:35px;
+                    width:35px;
+                }
+            }
+        }
     }
 
-]
-const [indexValue,setIndexValue] = useState<number|null>(null)
+    h1{
+        padding-left:30%;
+        margin-bottom:30px;
+        color:green;
+    }
+    .add_new_music{
+        display:flex;
+        justify-content:space-between;
+        h3{
+            padding:5px;
+            color:green;
+            border:1px solid white;
+            border-bottom: 1px solid green;
+            border-radius:10px;
+            &:hover{
+                border:1px solid green;
+                border-radius: 20px;
+                cursor:pointer;
+            }
+        }
+    }
+`;
+const FormMusicData = styled.form`
+    padding-left:20px;
+    margin-bottom:20px;
+    div{
+        display:flex;
+        justify-content:space-between;
+        padding-left:5px;
+        padding-right:20%;
+        margin-bottom:15px;
+
+        input, textarea{
+            width:80%;
+            height:20px;
+            color:#333333;
+
+            &:focus{
+                outline: 1px solid gray;
+            }
+            
+        }
+        textarea{
+            height:50px;
+        }
+        &:focus{
+            background-color:red;
+            color:red;
+        }
+        
+    }
+`;
+const Button = styled.button`
+    color:green;
+    font-size:24px;
+    border:1px solid green;
+    border-radius:15px;
+    width:200px;
+    margin:10vh 18%;
+    padding-left:5%;
+
+    &:hover{
+        color:white;
+        background-color:green;
+        font-weight:bold;
+        cursor:pointer;
+    }
+`;
+const Additional = styled.div`
+    width:20%;
+    // background-color:red;
+    padding-top:8%;
+    
+    .additional_add{
+        border: 1px solid white;
+        width:100%;
+        button{
+            width:70%;
+            color:green;
+            border:1px solid green;
+            border-radius: 20px;
+            margin-left:10%;
+            padding:5px 10%;
+            font-size:16px;
+            font-weight:bold;
+            
+
+        &:hover{
+            border:1px solid green;
+            border-radius: 20px;
+            color:white;
+            background-color:green;
+            cursor:pointer;
+        }
+    }
+    .description{
+        // background-color:red;
+        padding: 5px 10px;
+
+        p{
+            font-size:14px;
+            margin-bottom:20px;
+            color:green;
+            font-weight:100;
+        }
+    }
+`;
+export default function HomeMusic(){
+    const [musiList,setMusicList] = useState([{
+        id:0,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:1,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:2,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:3,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        },
+        {
+        id:4,
+        title:'alone again', 
+        artist:'the weekend',
+        album:'AfterHour',
+        genre:'Elecro-pop, Dark R&B'
+        }
+    ])
+    const [indexValue,setIndexValue] = useState<number|null>(null)
+    const [isEdit,setIsEdit] = useState<boolean>(false);
+    const [isAdd,setIsAdd] = useState<boolean>(false)
+
+    interface MusicDataStatus{
+        id:number | null,
+        title:string,
+        artist:string,
+        album:string,
+        genre:string
+    }
+    const initialMusicDatas:MusicDataStatus = {
+        id:null,
+        title:'',
+        artist:'',
+        album:'',
+        genre:'',
+    }
+    const [musicDatas,setMusicDatas] = useState<MusicDataStatus>(initialMusicDatas)
+
+    const handleChange =(e)=>{
+        e.preventDefault()
+        const name = e.target.name
+        const value = e.target.value
+        console.log(e)
+        setMusicDatas((prevData)=>({
+            ...prevData,
+            [name]:value
+        }))
+    }
+    const handleEdit = (music:MusicDataStatus)=>{
+        setMusicDatas(initialMusicDatas)
+        setIsEdit(true)
+        setIsAdd(false)
+        setMusicDatas(music)
+        console.log(musicDatas)
+    }
+    const handleAdd = ()=>{
+        setMusicDatas(initialMusicDatas)
+        setIsEdit(false)
+        setIsAdd(true)
+    }
+    const handleCancel = ()=>{
+        setMusicDatas(initialMusicDatas)
+        setIsAdd(false)
+        setIsEdit(false)
+    }
+
+    const handleSave=()=>{
+        console.log(musicDatas.title)
+        setMusicList((prevList)=>
+            prevList.map((item)=>
+                item.id === musicDatas.id? {...item,title:musicDatas.title} : item
+            )
+        )
+
+    }
     return (
         <div style={{minHeight:'60vh'}}>
             <MainBody>
                 <MusicLists>
                     <h2>Music list</h2>
-                    { musiList.map((musiListt, index)=>(
-                    <MusicList key={index} 
-                        onMouseEnter={()=>setIndexValue(index)}
+                    { musiList.map((musiListt)=>(
+                    <MusicList key={musiListt.id} 
+                        onMouseEnter={()=>setIndexValue(musiListt.id)}
                         onMouseLeave={()=>setIndexValue(null)}    
                     >   
                         <div className='arti_alb'>
-                            <p></p>
                             <p>title: {musiListt.title}</p>
                             <p>artist: {musiListt.artist}</p>
                             <p>album: {musiListt.album}</p>
                         </div>
                         <p className='genre'>genre: {musiListt.genre}</p>
-                        {indexValue === index &&
+                        {indexValue === musiListt.id &&
                         <div className='manage'>
-                            <div className='edit'>
-                                <p>Edit</p>
-                            </div>
+                            <button onClick={()=>handleEdit(musiListt)}>Edit</button>
                             <div className='image'>
                                 <img src={deletee} alt='delete icon' />
                             </div>
@@ -173,9 +360,54 @@ const [indexValue,setIndexValue] = useState<number|null>(null)
                     </MusicList>
                     ))}   
                 </MusicLists>
-                <MusicForm>
-                    <p>This is good.</p>
-                </MusicForm>
+                {(isEdit || isAdd) &&
+                    <MusicForm>
+                        {isEdit && <div className='add_new_music' onClick={handleAdd}>
+                            <h3>Add new music</h3>
+                        </div>
+                        }
+                        <div className='image_div'>
+                            <button onClick={handleCancel}>
+                                <img src={close} alt='close image' />
+                            </button>
+                        </div>
+                        {isEdit && <h1>Edit</h1>}
+                        {isAdd && <h1>Add Music</h1>}
+                        <FormMusicData>
+                            <div>
+                                <label htmlFor='title'>Title:</label>
+                                <input type='text' id='title' name='title' value={musicDatas.title || ''} onChange={handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor='artist'>Artist:</label>
+                                <input type='text' id='artist' name='artist' value={musicDatas.artist || ''} onChange={handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor='album'>Album:</label>
+                                <input type='text' id='album' name='album' value={musicDatas.album} onChange={handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor='genre'>Genre:</label>
+                                <textarea id='genre' name='genre' value={musicDatas.genre} onChange={handleChange}/>
+                            </div>
+                            <Button onClick={handleSave}>Save</Button>  
+                        </FormMusicData>
+
+                    </MusicForm>
+                }
+                {
+                    !(isAdd || isEdit) &&
+                    <Additional>
+                        <div className='additional_add'>
+                            <div className='description'>
+                            <p>This page is dedicated to music list.</p>
+                            <p>want to edit? click on edit button in the selected music list.</p>
+                            <p>want to add new music to music list?  click below</p>
+                            </div>
+                            <button onClick={handleAdd}>Add new music</button>
+                        </div>
+                    </Additional>
+                }
             </MainBody>
         </div>
     );

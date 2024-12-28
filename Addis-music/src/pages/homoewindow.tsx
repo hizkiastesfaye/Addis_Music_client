@@ -60,10 +60,6 @@ const Button = styled.button`
         background-color:green;
         font-weight:bold;
     }
-
-
-
-
 `;
 export default function HomeWindows(){
     const musicList = [
