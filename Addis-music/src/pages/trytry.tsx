@@ -105,3 +105,64 @@ export default function Trytry(){
 
     </>
 }
+
+
+
+const musiList = [{
+    id:0,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:1,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:2,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:3,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:4,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:5,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:6,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    {
+    id:7,
+    title:'alone again', 
+    artist:'the weekend',
+    album:'AfterHour',
+    genre:'Elecro-pop, Dark R&B'
+    },
+    
+]

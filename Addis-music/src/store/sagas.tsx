@@ -7,7 +7,7 @@ function* fetchPostSagaa(){
         const response = yield call(axios.get,'http://localhost:3007/get');
         yield put(fetchPostSuccess(response.data.message))
     }
-    catch (error: any){
+    catch (error){
         yield put(fetchPostFailure(error.message))
     }
 }

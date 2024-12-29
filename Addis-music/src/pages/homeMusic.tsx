@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled'
 import { RootState } from '../store/indexx';
-import { UseDispatch, useSelector } from 'react-redux';
-import { setFilterBy,setSearchText,fetchSeachDatas } from '../store/search';
+import { useDispatch, useSelector } from 'react-redux';
 import deletee from '../icons/delete.png'
 import close from '../icons/close.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import { fetchPostPending } from '../store/postSlice';
+import { css } from '@emotion/react';
 
 const MainBody = styled.div`
     display:flex;
@@ -34,6 +36,7 @@ const MusicList = styled.div`
     height:90px;
     display:flex;
     justify-content:space-between;
+    background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
 
     .list_atribute{
         // background-color:yellow;
@@ -251,70 +254,9 @@ const Additional = styled.div`
     }
 `;
 export default function HomeMusic(){
-    const [musiList,setMusicList] = useState([{
-        id:0,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:1,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:2,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:3,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:4,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:5,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:6,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        {
-        id:7,
-        title:'alone again', 
-        artist:'the weekend',
-        album:'AfterHour',
-        genre:'Elecro-pop, Dark R&B'
-        },
-        
-    ])
-    const [indexValue,setIndexValue] = useState<number|null>(null)
-    const [isEdit,setIsEdit] = useState<boolean>(false);
-    const [isAdd,setIsAdd] = useState<boolean>(false)
 
     interface MusicDataStatus{
-        id:number | null,
+        id:string | null,
         title:string,
         artist:string,
         album:string,
@@ -327,8 +269,19 @@ export default function HomeMusic(){
         album:'',
         genre:'',
     }
+    const [indexValue,setIndexValue] = useState<number|null>(null)
+    const [isEdit,setIsEdit] = useState<boolean>(false);
+    const [isAdd,setIsAdd] = useState<boolean>(false)
+    const dispatch = useDispatch()
+    const {posts,loading,error} = useSelector((state:RootState)=>state.posts)
     const [musicDatas,setMusicDatas] = useState<MusicDataStatus>(initialMusicDatas)
+    const [postError,setPostError]= useState('')
 
+
+
+    useEffect(()=>{
+        dispatch(fetchPostPending())
+    },[dispatch])
     const handleChange =(e)=>{
         e.preventDefault()
         const name = e.target.name
@@ -339,47 +292,106 @@ export default function HomeMusic(){
             [name]:value
         }))
     }
+    const [selectedId,setSelectedId]=useState(null)
     const handleEdit = (music:MusicDataStatus)=>{
         setMusicDatas(initialMusicDatas)
         setIsEdit(true)
         setIsAdd(false)
         setMusicDatas(music)
-        console.log(musicDatas)
+        setSelectedId(music.id)
     }
     const handleAdd = ()=>{
         setMusicDatas(initialMusicDatas)
         setIsEdit(false)
         setIsAdd(true)
+        setSelectedId(null)
+
     }
     const handleCancel = ()=>{
         setMusicDatas(initialMusicDatas)
         setIsAdd(false)
         setIsEdit(false)
+        setSelectedId(null)
     }
+    const song2 = {
+        title: 'adea',
+        artist:'abebaw',
+        album:'manew',
+        genre:'pop'
+    }
+    // const [isSuccess,setIsSuccess] = useState('')
 
-    const handleSave=()=>{
-        console.log(musicDatas.title)
-        setMusicList((prevList)=>
-            prevList.map((item)=>
-                item.id === musicDatas.id? {...item,title:musicDatas.title} : item
-            )
-        )
+    const handleSave=async(event: React.MouseEvent<HTMLButtonElement>)=>{
+        event.preventDefault()
+        // console.log(musicDatas.title)
+        if(isAdd && !isEdit){
+            try{
+                const addmusic = await axios.post('http://localhost:3007/add',musicDatas)
+                console.log('addmusic: ',addmusic)
+                dispatch(fetchPostPending())
+                window.alert('successfully music added.')
+                setMusicDatas(initialMusicDatas)
+                setIsAdd(false)
+                setIsEdit(false)
+            }
+            catch(err){
+                    setPostError(err.response.data.error)
+                    console.log('error: ',err.response.data.error)
+            }
+            // setMusicList((prevList)=>
+            //     prevList.map((item)=>
+            //         item.id === musicDatas.id? {...item,title:musicDatas.title} : item
+            //     )
+            // )
+        }
+        if(isEdit && !isAdd){
+            try{
+                console.log('first: ',musicDatas)
+                const putMusic = await axios.put(`http://localhost:3007/update/${musicDatas.id}`,musicDatas)
+                dispatch(fetchPostPending())
+                console.log('after: ',putMusic)
+                setMusicDatas(initialMusicDatas)
+                setIsAdd(false)
+                setIsEdit(false)
+            }
+            catch(err){
+                setPostError(err.response.data.error)
+                console.log('error: ',err.response.data.error)
+            }
+        }
     }
-    const handleDelete=(music:MusicDataStatus)=>{
-        window.alert('are you sure?')
-        setMusicList((prevList)=>
-            prevList.filter((item)=>item.id !== music.id)
-        )
+    const handleDelete=async(music:MusicDataStatus)=>{
+        const userConfirm = window.confirm('Are you sure you want to delete this music?')
+            if(userConfirm){
+            try{
+            const deleteMusic = await axios.delete(`http://localhost:3007/delete/${music.id}`)
+            console.log(deleteMusic)
+            dispatch(fetchPostPending())
+            window.alert('successfully deleted.')
+            }
+            catch(err){
+                setPostError(err.response.data.error)
+                console.log('err: ',err)
+                window.alert(`error: ,${err.response.data.error}`)
+            }
+        }
+        else{
+            window.alert('user cancelled the deletion.')
+        }
+        // setMusicList((prevList)=>
+        //     prevList.filter((item)=>item.id !== music.id)
+        // )
     }
+    
     return (
         <div style={{minHeight:'60vh'}}>
             <MainBody>
                 <MusicLists>
                     <h2>Music list</h2>
-                    { musiList.map((musiListt)=>(
-                    <MusicList key={musiListt.id} 
+                    { posts.map((musiListt)=>(
+                    <MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}
                         onMouseEnter={()=>setIndexValue(musiListt.id)}
-                        onMouseLeave={()=>setIndexValue(null)} >
+                        onMouseLeave={()=>setIndexValue(null)}>
                         <div className='list_atribute'>
                             <div className='arti_alb'>
                                 <p>title: {musiListt.title}</p>
@@ -391,7 +403,7 @@ export default function HomeMusic(){
                         <div className='before_manage'>
                             {indexValue === musiListt.id &&
                             <div className='manage'>
-                                <button onClick={()=>handleEdit(musiListt)}>Edit</button>
+                                <button id={musiListt.id} onClick={()=>handleEdit(musiListt)}>Edit</button>
                                 <div className='image'>
                                     <img src={deletee} alt='delete icon' onClick={()=>handleDelete(musiListt)}/>
                                 </div>
@@ -431,6 +443,7 @@ export default function HomeMusic(){
                                 <label htmlFor='genre'>Genre:</label>
                                 <textarea id='genre' name='genre' value={musicDatas.genre} onChange={handleChange}/>
                             </div>
+                            {postError && <p css={css`color:red; font-size:12px; margin-left:20%; margin-top:5px;`}>** {postError}</p>}
                             <Button onClick={handleSave}>Save</Button>  
                         </FormMusicData>
 
