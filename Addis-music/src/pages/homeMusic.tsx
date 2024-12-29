@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled'
+import { RootState } from '../store/indexx';
+import { UseDispatch, useSelector } from 'react-redux';
+import { setFilterBy,setSearchText,fetchSeachDatas } from '../store/search';
 import deletee from '../icons/delete.png'
 import close from '../icons/close.png'
 import { useState } from 'react';

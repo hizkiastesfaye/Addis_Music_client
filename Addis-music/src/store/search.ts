@@ -14,15 +14,15 @@ interface SearchState{
 }
 
 const initialSearchState:SearchState= {
-    filterType:'',
+    filterType:'title',
     searchText:'',
     searchDatas:[],
 }
 
 const searchSlice = createSlice({
     name:'searchSlice',
-    initialSearchState,
-    reducer:{
+    initialState:initialSearchState,
+    reducers:{
         setFilterBy(state,action:PayloadAction<string>){
             state.filterType = action.payload
         },
@@ -36,5 +36,5 @@ const searchSlice = createSlice({
 
 })
 
-export const {setFilterBy,setSearchText,fetchSeachDatas} = searchSlice.action
+export const {setFilterBy,setSearchText,fetchSeachDatas} = searchSlice.actions
 export default searchSlice.reducer

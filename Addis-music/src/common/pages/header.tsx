@@ -8,6 +8,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
+import { setFilterBy,setSearchText } from "../../store/search";
 
 const Container = styled.div`
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
@@ -145,9 +146,11 @@ const DropFilter=styled.div`
 
 
 export default function Header(){
-    const [filterName,setFilterName] = useState('title')
+    // const [filterName,setFilterName] = useState('title')
     const dispatch = useDispatch()
+    const {filterType,searchText} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
+    const [searchvalues,setSearchValues] = useState('')
     const handleDropFilter=()=>{
         if(isDropMenu){
             dispatch(dropMenuFalse())
@@ -157,8 +160,17 @@ export default function Header(){
             dispatch(dropMenuTrue())
         }
     }
-    const handleFilter=(name)=>{
-        setFilterName(name)
+    const handleFilter=(name:string)=>{
+        console.log(name)
+        dispatch(setFilterBy(name))
+    }
+    const handleChangeSearch=(e)=>{
+        e.preventDefault()
+        const {value} = e.target
+        setSearchValues(value)
+    }
+    const handleseachSubmit =()=>{
+        dispatch(setSearchText(searchvalues))
     }
     return (
         <>
@@ -166,16 +178,16 @@ export default function Header(){
                 <h2>Addis Music</h2>
                 <DivSearch>
                     <DivSearch1>
-                        <Image1>
+                        <Image1 onClick={handleseachSubmit}>
                             <img src={search} alt="search icons" />
                         </Image1>
-                        <input type="text" placeholder="Search for Music" />
+                        <input type="text" placeholder="Search for Music" id='searchid' name='searchName' value={searchvalues} onChange={handleChangeSearch}/>
                     </DivSearch1>
                     <DivSearch2>
                         <button onClick={handleDropFilter}>
                             <img src={filter} alt="search icons" />
                         </button>
-                        <p>{filterName}</p>
+                        <p>{filterType}</p>
                     </DivSearch2>
                 </DivSearch>
             </Container>
