@@ -9,6 +9,7 @@ import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
 import { setFilterBy,setSearchText } from "../../store/search";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     // background-color:red;
@@ -22,6 +23,7 @@ const Container = styled.div`
         font-family:Jaini;
         margin-top:0px;
         // background-color:yellow;
+        cursor:pointer;
   
     }
 `;
@@ -207,6 +209,7 @@ const DropFilter=styled.div`
 
 export default function Header(){
     // const [filterName,setFilterName] = useState('title')
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const {filterType,searchText} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
@@ -235,7 +238,7 @@ export default function Header(){
     return (
         <>
             <Container>
-                <h2>Addis Music</h2>
+                <h2 onClick={()=>navigate('/music')}>Addis Music</h2>
                 <DivSearch>
                     <DivSearch1>
                         <Image1 onClick={handleseachSubmit}>

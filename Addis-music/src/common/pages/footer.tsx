@@ -7,6 +7,8 @@ import twitter from "../../icons/logo/twitter.png";
 import tiktok from "../../icons/logo/tik-tok.png";
 import youtube from "../../icons/logo/youtube.png";
 import copyright from "../../icons/copyright.png"
+import { useNavigate } from "react-router-dom";
+import { css } from "@emotion/react";
 
 const Footerr = styled.div`
     position:absolute;
@@ -56,6 +58,7 @@ const FooterDiv1=styled.div`
         width:60%;
         border-radius:20px;
         padding-left:40px;
+        cursor:pointer;
         h2{
             font-family:Jaini;
             // font-size:18;
@@ -113,7 +116,22 @@ const FooterDiv2=styled.div`
     // border-right:1px solid gray;
     h4{
         display:none;
-        
+    }
+    ul{
+        // background-color:red;
+        padding:0;
+        margin:0;
+        li{
+            list-style-type:none;
+            font-size:16px;
+            cursor:pointer;
+            border-bottom:1px solid #F1F1F1;
+            
+            &:hover{
+                border-bottom:1px solid green;
+            }
+            
+        }
     }
     @media(max-width:600px){
         margin:0;
@@ -125,6 +143,7 @@ const FooterDiv2=styled.div`
             li{
                 list-style-type:none;
                 font-size:14px;
+                
             }
         }
         h3{
@@ -139,7 +158,21 @@ const FooterDiv2=styled.div`
 const FooterDiv3=styled.div`
     h4{
         display:none;
-        
+    }
+    ul{
+        // background-color:red;
+        padding:0;
+        margin:0;
+        li{
+            list-style-type:none;
+            font-size:16px;
+            cursor:pointer;
+            border-bottom:1px solid #F1F1F1;
+            
+            &:hover{
+                border-bottom:1px solid green;
+            }
+        }
     }
     @media(max-width:600px){
         margin:0;
@@ -163,11 +196,12 @@ const FooterDiv3=styled.div`
     }
 `;
 export default function Footer(){
+    const navigate = useNavigate()
     return <>
         <Footerr>
         <FooterBody>
             <FooterDiv1>
-                <div className="name">
+                <div className="name" onClick={()=>navigate('/music')}>
                     <h2>Addis Music</h2>
                     <h4>Addis Music</h4>
                 </div>
@@ -184,17 +218,17 @@ export default function Footer(){
                 <h3>To Know us</h3>
                 <h4>To Know us</h4>
                 <ul>
-                    <li>About us</li>
-                    <li>Blogs</li>
+                    <li onClick={()=>navigate('/aboutUs')}>About us</li>
+                    <li><a href="https://github.com/hizkiastesfaye/Addis_Music_client/blob/main/README.md" target="_blank" css={css`color:green; text-decoration:none;`}>Blogs</a></li>
                 </ul>
             </FooterDiv2>
             <FooterDiv3>
                 <h3>Support</h3>
                 <h4>Support</h4>
                 <ul>
-                    <li>Help Center</li>
-                    <li>contact us</li>
-                    <li>Report Abuse</li>
+                    <li><a href="https://github.com/hizkiastesfaye/Addis_Music_client/blob/main/README.md" target="_blank" css={css`color:green; text-decoration:none;`}> Help Center</a></li>
+                    <li><a href="mailto:tesfayehizkiyas3@gmail.com" css={css`text-decoration:none; color:green;`}> contact us </a></li>
+                    <li><a href="mailto:tesfayehizkiyas3@gmail.com?subject=To Reporting%20Abuse" css={css`text-decoration:none; color:green;`}>  Report Abuse </a></li>
                 </ul>
             </FooterDiv3>
         </FooterBody>

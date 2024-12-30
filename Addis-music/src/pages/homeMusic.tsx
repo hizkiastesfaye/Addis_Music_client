@@ -86,17 +86,17 @@ const MusicList = styled.div`
     margin-bottom:10px;
     border-bottom:1px solid rgba(0,0,0,0.1);
     border-right:1px solid rgba(0,0,0,0.1);
-    height:90px;
+    min-height:100px;
     display:flex;
     justify-content:space-between;
     background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
 
     .list_attribute{
         // background-color:yellow;
-        width:98%;
+        width:90%;
         .arti_alb{
             display:flex;
-            gap:5%;
+            gap:1%;
             justify-content:left;
         
         }
@@ -114,7 +114,7 @@ const MusicList = styled.div`
 
     .before_manage{
         // background-color:brown;
-        width:10%;
+        width:130px;
         padding-top:5px;
 
         .manage{
@@ -177,17 +177,12 @@ const MusicList = styled.div`
             color:green;
         }
     }
-    @media (max-width:600px){
-        // display:block;
-        // background-color:gray;
-        // height:75px;
+    @media (max-width:750px){
         height:fit-content;
         margin-top:10px;
         // padding-bottom:5px;
 
         .list_attribute{
-            // background-color:brown;
-            // width:100%;
             .arti_alb{
                 display:none;
             }
