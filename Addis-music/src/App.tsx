@@ -13,6 +13,7 @@ import { useDispatch,useSelector } from "react-redux"
 import { dropMenuFalse } from "./store/dropDownFilter"
 import { RootState } from "./store/indexx";
 import AboutUs from "./pages/aboutUs"
+import SearchList from "./pages/searchList"
 
 
 function App() {
@@ -30,6 +31,11 @@ function App() {
         <Route path="music" element={<>
           <Header />
           <HomeMusic />
+          <Footer />
+          </>} />
+          <Route path="search" element={<>
+          <Header />
+          <SearchList />
           <Footer />
           </>} />
         <Route path="aboutUs" element={<>

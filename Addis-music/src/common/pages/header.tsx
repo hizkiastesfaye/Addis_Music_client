@@ -8,8 +8,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
-import { setFilterBy,setSearchText } from "../../store/search";
+import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError } from "../../store/search";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
     // background-color:red;
@@ -211,7 +212,7 @@ export default function Header(){
     // const [filterName,setFilterName] = useState('title')
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {filterType,searchText} = useSelector((state:RootState)=>state.searchMusic)
+    const {filterType,searchText,searchDatas} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const [searchvalues,setSearchValues] = useState('')
     const handleDropFilter=()=>{
@@ -232,16 +233,25 @@ export default function Header(){
         const {value} = e.target
         setSearchValues(value)
     }
-    const handleseachSubmit =()=>{
+    const handlesearchSubmit =async()=>{
         dispatch(setSearchText(searchvalues))
-    }
+        try{
+        const response = await axios.get(`http://localhost:3007/get?${filterType}=${searchvalues}`)
+        console.log('response: ',response.data.message)
+        dispatch(fetchSeachDatas(response.data.message))
+        }
+        catch(err){
+            console.log('error**: ',err.response.data.error)
+            dispatch(fetchSeachError(err.response.data.error))
+        }
+    } 
     return (
         <>
             <Container>
                 <h2 onClick={()=>navigate('/music')}>Addis Music</h2>
                 <DivSearch>
                     <DivSearch1>
-                        <Image1 onClick={handleseachSubmit}>
+                        <Image1 onClick={handlesearchSubmit}>
                             <img src={search} alt="search icons" />
                         </Image1>
                         <input type="text" placeholder="Search for Music" id='searchid' name='searchName' value={searchvalues} onChange={handleChangeSearch}/>

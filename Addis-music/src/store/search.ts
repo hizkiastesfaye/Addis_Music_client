@@ -11,12 +11,14 @@ interface SearchState{
     filterType:string,
     searchText:string,
     searchDatas:MusicDataStatus[]
+    searchError:string | null;
 }
 
 const initialSearchState:SearchState= {
     filterType:'title',
     searchText:'',
     searchDatas:[],
+    searchError:null,
 }
 
 const searchSlice = createSlice({
@@ -31,10 +33,13 @@ const searchSlice = createSlice({
         },
         fetchSeachDatas(state,action:PayloadAction<MusicDataStatus[]>){
             state.searchDatas=action.payload
+        },
+        fetchSeachError(state,action:PayloadAction<string>){
+            state.searchError=action.payload
         }
     }
 
 })
 
-export const {setFilterBy,setSearchText,fetchSeachDatas} = searchSlice.actions
+export const {setFilterBy,setSearchText,fetchSeachDatas,fetchSeachError} = searchSlice.actions
 export default searchSlice.reducer

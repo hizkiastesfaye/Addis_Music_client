@@ -36,34 +36,34 @@ const MusicLists = styled.div`
             display:none;
         }
 
-    .add_button{
-        @media (min-width:600px){
-            display:none;
-        }
-        // background-color:blue;
-        border: 1px solid white;
-        width:100%;
-        display:flex;
-        justify-content:right;
-        button{
-            width:45%;
-            color:green;
-            border:1px solid green;
-            border-radius: 20px;
-            padding:5px 1px;
-            font-size:14px;
-            font-weight:bold;
+    // .add_button{
+    //     @media (min-width:600px){
+    //         display:none;
+    //     }
+    //     // background-color:blue;
+    //     border: 1px solid white;
+    //     width:100%;
+    //     display:flex;
+    //     justify-content:right;
+    //     button{
+    //         width:45%;
+    //         color:green;
+    //         border:1px solid green;
+    //         border-radius: 20px;
+    //         padding:5px 1px;
+    //         font-size:14px;
+    //         font-weight:bold;
             
 
-            &:hover{
-                border:1px solid green;
-                border-radius: 20px;
-                color:white;
-                background-color:green;
-                cursor:pointer;
-            }
-        }
-    }
+    //         &:hover{
+    //             border:1px solid green;
+    //             border-radius: 20px;
+    //             color:white;
+    //             background-color:green;
+    //             cursor:pointer;
+    //         }
+    //     }
+    // }
 
 
     @media (max-width: 600px){
@@ -391,7 +391,7 @@ const Additional = styled.div`
         }
     }
 `;
-export default function HomeMusic(){
+export default function SearchList(){
 
     interface MusicDataStatus{
         id:string | null,
@@ -414,12 +414,12 @@ export default function HomeMusic(){
     const {posts,loading,error} = useSelector((state:RootState)=>state.posts)
     const [musicDatas,setMusicDatas] = useState<MusicDataStatus>(initialMusicDatas)
     const [postError,setPostError]= useState('')
+    const {searchDatas, searchError} = useSelector((state:RootState)=>state.searchMusic)
 
 
 
-    useEffect(()=>{
-        dispatch(fetchPostPending())
-    },[dispatch])
+
+
     const handleChange =(e)=>{
         e.preventDefault()
         const name = e.target.name
@@ -438,33 +438,19 @@ export default function HomeMusic(){
         setMusicDatas(music)
         setSelectedId(music.id)
     }
-    const handleAdd = ()=>{
-        setMusicDatas(initialMusicDatas)
-        setIsEdit(false)
-        setIsAdd(true)
-        setSelectedId(null)
-
-    }
     const handleCancel = ()=>{
         setMusicDatas(initialMusicDatas)
         setIsAdd(false)
         setIsEdit(false)
         setSelectedId(null)
     }
-    const song2 = {
-        title: 'adea',
-        artist:'abebaw',
-        album:'manew',
-        genre:'pop'
-    }
-    // const [isSuccess,setIsSuccess] = useState('')
 
     const handleSave=async(event: React.MouseEvent<HTMLButtonElement>)=>{
         event.preventDefault()
         // console.log(musicDatas.title)
         if(isAdd && !isEdit){
             try{
-                const addmusic = await axios.post('http://localhost:3007/add',musicDatasn)
+                const addmusic = await axios.post('http://localhost:3007/add',musicDatas)
                 console.log('addmusic: ',addmusic)
                 dispatch(fetchPostPending())
                 window.alert('successfully music added.')
@@ -525,11 +511,8 @@ export default function HomeMusic(){
         <div style={{minHeight:'60vh'}}>
             <MainBody>
                 <MusicLists isForm={isEdit || isAdd}>
-                    <div className='add_button'>
-                        <button onClick={handleAdd}>Add music</button>
-                    </div>
-                    <h2>Music list</h2>
-                    <h3>Music list</h3>
+                    <h2>search music list</h2>
+                    <h3>search music list</h3>
                     { posts.map((musiListt)=>(
                     <MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}
                         onMouseEnter={()=>setIndexValue(musiListt.id)}
@@ -562,7 +545,7 @@ export default function HomeMusic(){
                             }
                         </div>
                     </MusicList>
-                ))}   
+                    ))}   
                 </MusicLists>
                 {(isEdit || isAdd) &&
                     <MusicForm>
@@ -599,19 +582,6 @@ export default function HomeMusic(){
                         </FormMusicData>
 
                     </MusicForm>
-                }
-                {
-                    !(isAdd || isEdit) &&
-                    <Additional>
-                        <div className='additional_add'>
-                            <div className='description'>
-                            <p>This page is dedicated to music list.</p>
-                            <p>want to edit? click on edit button in the selected music list.</p>
-                            <p>want to add new music to music list?  click below</p>
-                            </div>
-                            <button onClick={handleAdd}>Add music</button>
-                        </div>
-                    </Additional>
                 }
             </MainBody>
         </div>
