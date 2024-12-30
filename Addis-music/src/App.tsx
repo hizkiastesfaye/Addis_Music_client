@@ -12,6 +12,7 @@ import Footer from "./common/pages/footer"
 import { useDispatch,useSelector } from "react-redux"
 import { dropMenuFalse } from "./store/dropDownFilter"
 import { RootState } from "./store/indexx";
+import AboutUs from "./pages/aboutUs"
 
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
         <Route path="music" element={<>
           <Header />
           <HomeMusic />
+          <Footer />
+          </>} />
+        <Route path="aboutUs" element={<>
+          <Header />
+          <AboutUs />
           <Footer />
           </>} />
         <Route path="try" element={<>

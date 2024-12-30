@@ -6,45 +6,89 @@ import instagram from "../../icons/logo/instagram.png";
 import twitter from "../../icons/logo/twitter.png";
 import tiktok from "../../icons/logo/tik-tok.png";
 import youtube from "../../icons/logo/youtube.png";
+import copyright from "../../icons/copyright.png"
 
 const Footerr = styled.div`
-    postion:absolute;
-    bottom:100px;
+    position:absolute;
+    // bottom:100px;
     height:25vh;
     background-color:#F1F1F1;
     border-top: 2px solid green;
+    width:100%;
 
     .copyright{
         color:green;
-        margin-top:2px;
-        padding-left:50%;
+        margin-top:5px;
+        bottom:0;
+        padding-left:6%;
+        font-size:14px;
+        display:flex;
+        justify-content:center;
+        gap:3px;
+        img{
+            padding-top:15px;
+            width:15px;
+            height:15px;
+        }
+        p{
+            color:black;
+            font-size:14px;  
+        }
     }
 `;
 const FooterBody = styled.div`
 
     display:flex;
+
     justify-content:space-around;
     color:green;
-    padding-left:2%;
-    padding-right:2%;
+    padding-left:2px;
+    padding-right:2px;
     margin-bottom:15px;
+    @media (max-width:600px){
+        margin-bottom:2px;
+    }
 `;
 const FooterDiv1=styled.div`
     
     .name {
         background-color:green;
-        width:200px;
+        width:60%;
         border-radius:20px;
         padding-left:40px;
         h2{
             font-family:Jaini;
-            font-size:18;
+            // font-size:18;
             color:#0B5213;
             color:white;
         }
+        h4{
+            display:none;
+        }
     }
     p{
-        margin-bottom:20px;
+        margin-bottom:5px;
+    }
+    @media (max-width:600px){
+        // border-right:1px solid gray;
+        width:140px;
+        .name{
+            padding-left:7px;
+            
+            width:90px;
+            h2{
+                display:none;
+            }
+            h4{
+                
+                display:block;
+                color:white;
+                margin-bottom:0;
+            }
+        }
+        p{
+            font-size:12px;
+        }
     }
 
 `;
@@ -54,13 +98,69 @@ const FooterLogos=styled.div`
 
     img{
         width:30px;
+        height:30px;
     }
+    @media (max-width:600px){
+        gap:5px;
+        img{
+            width:20px;
+            height:20px;
+        }
+    }
+
 `;
 const FooterDiv2=styled.div`
-
+    // border-right:1px solid gray;
+    h4{
+        display:none;
+        
+    }
+    @media(max-width:600px){
+        margin:0;
+        // background-color:yellow;
+        ul{
+            // background-color:red;
+            padding:0;
+            margin:0;
+            li{
+                list-style-type:none;
+                font-size:14px;
+            }
+        }
+        h3{
+            display:none;
+        }
+        h4 {
+            display:block;
+            margin-bottom:7px;
+        }
+    }
 `;
 const FooterDiv3=styled.div`
-
+    h4{
+        display:none;
+        
+    }
+    @media(max-width:600px){
+        margin:0;
+        // background-color:yellow;
+        ul{
+            // background-color:red;
+            padding:0;
+            margin:0;
+            li{
+                list-style-type:none;
+                font-size:14px;
+            }
+        }
+        h3{
+            display:none;
+        }
+        h4 {
+            display:block;
+            margin-bottom:7px;
+        }
+    }
 `;
 export default function Footer(){
     return <>
@@ -69,18 +169,20 @@ export default function Footer(){
             <FooterDiv1>
                 <div className="name">
                     <h2>Addis Music</h2>
+                    <h4>Addis Music</h4>
                 </div>
                 <p>Follow us in social media</p>
                 <FooterLogos>
-                    <img src={facebook} alt="facebook" />
-                    <img src={tiktok} alt="tiktok"/>
-                    <img src={instagram} alt="instagram"/>
-                    <img src={twitter} alt="twitter"/>
-                    <img src={youtube} alt="youtube"/>
+                <a href="https://www.facebook.com" target="_blank"><img src={facebook} alt="facebook" /></a>
+                    <a href="https://www.tiktok.com" target="_blank"><img src={tiktok} alt="tiktok"/></a>
+                    <a href="https://www.instagram.com" target="_blank"><img src={instagram} alt="instagram"/></a>
+                    <a href="https://www.twitter.com" target="_blank"><img src={twitter} alt="twitter"/></a>
+                    <a href="https://www.youtube.com" target="_blank"><img src={youtube} alt="youtube"/></a>
                 </FooterLogos>
             </FooterDiv1>
             <FooterDiv2>
-                <h3>Get to Know us</h3>
+                <h3>To Know us</h3>
+                <h4>To Know us</h4>
                 <ul>
                     <li>About us</li>
                     <li>Blogs</li>
@@ -88,6 +190,7 @@ export default function Footer(){
             </FooterDiv2>
             <FooterDiv3>
                 <h3>Support</h3>
+                <h4>Support</h4>
                 <ul>
                     <li>Help Center</li>
                     <li>contact us</li>
@@ -95,7 +198,10 @@ export default function Footer(){
                 </ul>
             </FooterDiv3>
         </FooterBody>
-        <p className="copyright">2024, Addis Music</p>
+        <div className="copyright">
+        <img src={copyright} alt="copyright" />
+        <p >2024, Addis Music</p>
+        </div>
         </Footerr>
     </>
 }

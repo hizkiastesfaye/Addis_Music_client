@@ -10,9 +10,16 @@ import { fetchPostPending } from '../store/postSlice';
 import { css } from '@emotion/react';
 
 const MainBody = styled.div`
+    
+    height:100%;
+    margin:0;
     display:flex;
     justify-content:space-between;
-    padding:20px 30px;
+    padding:5px 10px;
+    @media (max-width:600px){
+        // background-color:gray;
+        display:block;
+    }
 
 `;
 const MusicLists = styled.div`
@@ -24,13 +31,59 @@ const MusicLists = styled.div`
     h2{
         color:green;
         padding-left:40%;
+    }
+        h3{
+            display:none;
+        }
+
+    .add_button{
+        @media (min-width:600px){
+            display:none;
+        }
+        // background-color:blue;
+        border: 1px solid white;
+        width:100%;
+        display:flex;
+        justify-content:right;
+        button{
+            width:45%;
+            color:green;
+            border:1px solid green;
+            border-radius: 20px;
+            padding:5px 1px;
+            font-size:14px;
+            font-weight:bold;
+            
+
+            &:hover{
+                border:1px solid green;
+                border-radius: 20px;
+                color:white;
+                background-color:green;
+                cursor:pointer;
+            }
+        }
+    }
+
+
+    @media (max-width: 600px){
+        display:${(prop)=>(prop.isForm ? 'none' : 'block')};
+        // background-color:red;
+        h2{display:none};
+        h3{
+            display:block;
+            color:green;
+            padding-left:40%; 
+        };
+
 
     }
 `;
 const MusicList = styled.div`
+
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
     padding-bottom:2px;
-    margin-bottom:2px;
+    margin-bottom:10px;
     border-bottom:1px solid rgba(0,0,0,0.1);
     border-right:1px solid rgba(0,0,0,0.1);
     height:90px;
@@ -38,13 +91,17 @@ const MusicList = styled.div`
     justify-content:space-between;
     background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
 
-    .list_atribute{
+    .list_attribute{
         // background-color:yellow;
         width:98%;
         .arti_alb{
             display:flex;
             gap:5%;
             justify-content:left;
+        
+        }
+        .arti_alb_sm{
+            display:none;
         }
         p{
             width:100%;
@@ -69,6 +126,9 @@ const MusicList = styled.div`
                 display:flex;
                 align-items:center;
                 height:40px;
+                button{
+                    display:none;
+                }
                 img{
                     width:20px;
                     height:20px;
@@ -77,10 +137,13 @@ const MusicList = styled.div`
                     &:hover{
                         width:28px;
                         height:28px;
+                        // background-color:blue;
                         box-shadow:0 2px 4px green;
                     }
                 }
-
+            }
+            .delete_button{
+                display:none;
             }
             button{
                 margin-bottom:5px;
@@ -114,11 +177,78 @@ const MusicList = styled.div`
             color:green;
         }
     }
+    @media (max-width:600px){
+        // display:block;
+        // background-color:gray;
+        // height:75px;
+        height:fit-content;
+        margin-top:10px;
+        // padding-bottom:5px;
+
+        .list_attribute{
+            // background-color:brown;
+            // width:100%;
+            .arti_alb{
+                display:none;
+            }
+            .arti_alb_sm{
+                display:block;
+                // background-color:yellow;
+                div{
+                    display:flex;
+                    justify-content:left;
+                }
+
+            };
+            p{
+                // background-color:red;
+                width:100%;
+                font-size:14px;
+                font-weight:100;
+                margin-top:3px;
+            }
+        };
+
+        .before_manage{
+            // background-color:brown;
+            width:20%;
+            padding-top:0px;
+            height:70px;
+
+            .manage{
+                // background-color:blue;
+                width:100%;
+                
+                .image{
+                    height:30px;
+                    // background-color:green;
+                }
+                button{
+                    margin-left:2px;
+                    width:80%;
+                    padding-left:10px;
+                    height:20px;
+                    font-size:12px;
+                    &:hover{
+                        font-size:14px;
+                    }
+                }
+            }
+        }
+        
+        &:hover{
+            // border-bottom:1px solid green;
+            cursor:pointer;
+            box-shadow:0px 2px 3px green;
+            p{
+                color:green;
+            }
+        }
+    }
 `;
 
 const MusicForm = styled.div`
-    width:40%;
-    padding-left:3%;
+    width:60%;
 
     .image_div{
         width:100%;
@@ -154,7 +284,7 @@ const MusicForm = styled.div`
     .add_new_music{
         display:flex;
         justify-content:space-between;
-        h3{
+        h3{                cursor:pointer;
             padding:5px;
             color:green;
             border:1px solid white;
@@ -167,21 +297,31 @@ const MusicForm = styled.div`
             }
         }
     }
+    
+    @media (max-width:600px){
+        width:90%;
+    }
 `;
 const FormMusicData = styled.form`
-    padding-left:20px;
+    padding-left:2px;
+    // width:100%;
     margin-bottom:20px;
+    // background-color:red;
     div{
         display:flex;
         justify-content:space-between;
         padding-left:5px;
-        padding-right:20%;
+        padding-right:3%;
         margin-bottom:15px;
 
+        label{
+            width:65px;
+        }
         input, textarea{
-            width:80%;
+            width:100%;
             height:20px;
             color:#333333;
+            // margin-left:70px;
 
             &:focus{
                 outline: 1px solid gray;
@@ -215,6 +355,9 @@ const Button = styled.button`
     }
 `;
 const Additional = styled.div`
+    @media (max-width:600px){
+        display:none;
+    }
     width:20%;
     // background-color:red;
     padding-top:8%;
@@ -223,11 +366,11 @@ const Additional = styled.div`
         border: 1px solid white;
         width:100%;
         button{
-            width:70%;
+            width:100%;
             color:green;
             border:1px solid green;
             border-radius: 20px;
-            margin-left:10%;
+            margin-left:2%;
             padding:5px 10%;
             font-size:16px;
             font-weight:bold;
@@ -386,17 +529,28 @@ export default function HomeMusic(){
     return (
         <div style={{minHeight:'60vh'}}>
             <MainBody>
-                <MusicLists>
+                <MusicLists isForm={isEdit || isAdd}>
+                    <div className='add_button'>
+                        <button onClick={handleAdd}>Add music</button>
+                    </div>
                     <h2>Music list</h2>
+                    <h3>Music list</h3>
                     { posts.map((musiListt)=>(
                     <MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}
                         onMouseEnter={()=>setIndexValue(musiListt.id)}
                         onMouseLeave={()=>setIndexValue(null)}>
-                        <div className='list_atribute'>
+                        <div className='list_attribute'>
                             <div className='arti_alb'>
                                 <p>title: {musiListt.title}</p>
                                 <p>artist: {musiListt.artist}</p>
-                                <p>album: {musiListt.album}</p>
+                                <p>album:{musiListt.album}</p>
+                            </div>
+                            <div className='arti_alb_sm'>
+                                <p>title: {musiListt.title}</p>
+                                <div>
+                                    <p>artist: {musiListt.artist}</p>
+                                    <p>album:{musiListt.album}</p>
+                                </div>
                             </div>
                             <p className='genre'>genre: {musiListt.genre}</p>
                         </div>
@@ -406,7 +560,9 @@ export default function HomeMusic(){
                                 <button id={musiListt.id} onClick={()=>handleEdit(musiListt)}>Edit</button>
                                 <div className='image'>
                                     <img src={deletee} alt='delete icon' onClick={()=>handleDelete(musiListt)}/>
+                                    <button onClick={()=>handleDelete(musiListt)}>Delete</button>
                                 </div>
+                                {/* <button className='delete_button' onClick={()=>handleDelete(musiListt)}>Delete</button> */}
                             </div>
                             }
                         </div>
@@ -426,7 +582,7 @@ export default function HomeMusic(){
                         </div>
                         {isEdit && <h1>Edit</h1>}
                         {isAdd && <h1>Add Music</h1>}
-                        <FormMusicData>
+                        <FormMusicData isForm={isEdit || isAdd}>
                             <div>
                                 <label htmlFor='title'>Title:</label>
                                 <input type='text' id='title' name='title' value={musicDatas.title || ''} onChange={handleChange}/>
@@ -437,7 +593,7 @@ export default function HomeMusic(){
                             </div>
                             <div>
                                 <label htmlFor='album'>Album:</label>
-                                <input type='text' id='album' name='album' value={musicDatas.album} onChange={handleChange}/>
+                                <input albumInput type='text' id='album' name='album' value={musicDatas.album} onChange={handleChange}/>
                             </div>
                             <div>
                                 <label htmlFor='genre'>Genre:</label>
@@ -458,7 +614,7 @@ export default function HomeMusic(){
                             <p>want to edit? click on edit button in the selected music list.</p>
                             <p>want to add new music to music list?  click below</p>
                             </div>
-                            <button onClick={handleAdd}>Add new music</button>
+                            <button onClick={handleAdd}>Add music</button>
                         </div>
                     </Additional>
                 }

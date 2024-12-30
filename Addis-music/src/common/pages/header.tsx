@@ -11,13 +11,17 @@ import { useState } from "react";
 import { setFilterBy,setSearchText } from "../../store/search";
 
 const Container = styled.div`
+    // background-color:red;
+    width:100%;
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
     padding-bottom:10px;
+    
     h2{
         margin-left:7%;
         color:green;
         font-family:Jaini;
         margin-top:0px;
+        // background-color:yellow;
   
     }
 `;
@@ -40,6 +44,17 @@ const DivSearch = styled.div`
         width: 20px;
         
     }
+    @media (max-width:600px){
+        // background-color:yellow;
+        margin-left:2%;
+        width:96%;
+        height:25px;
+
+        img{
+            height:15px;
+            width:15px;
+        }
+    }
 `;
 const DivSearch1=styled.div`
     // background-color:blue;
@@ -55,9 +70,15 @@ const DivSearch1=styled.div`
         border-bottom:0px;
         width:100%;
     };
+    @media (max-width:600px){
+        input{
+            font-size:12px;
+        }
+    }
     
 `;
-const Image1 = styled.div`
+const Image1 = styled.button`
+    border:none;
     display:flex;
     background-color: #E7E7E7;
     align-items:center;
@@ -73,9 +94,16 @@ const Image1 = styled.div`
             width:25px;
             height:25px;
         };
+        @media (max-width:600px){
+        background-color:#D7F4DB;
+            img{
+                width:17px;
+                height:17px;
+            }
+        }
         }
     img{
-    margin:0 auto;
+        margin:0 auto;
     }
 `;
 const DivSearch2= styled.div`
@@ -84,6 +112,7 @@ const DivSearch2= styled.div`
     align-items:center;
     gap:5px;
     padding-left:10px;
+    padding-right:13px;
     // background-color:red;
 
     button{
@@ -93,7 +122,8 @@ const DivSearch2= styled.div`
         width:60px;
         border:0;
         background-color:white;
-        img{
+        img{:30px;
+                    backgr
             margin:0 auto;
         };
         
@@ -113,6 +143,36 @@ const DivSearch2= styled.div`
         height:30px;
         width:40%;
         padding-left:10%;
+        color:gray;
+    }
+    @media (max-width:600px){
+        width:100px;
+        border-top-right-radius:13px;
+        border-bottom-right-radius:13px;
+        padding-left:1px;
+        // background-color:blue;
+        font-weight:100;
+        p{
+            font-size:16px;
+            // background-color:blue;
+            height:20px;
+            margin-top:1px;
+            padding-top:5px;
+        }
+
+        button{
+            height:25px;
+            width:35px;
+
+            &:hover{
+                border:1px solid green;
+                background-color:#D7F4DB;
+                img{
+                    width:17px;
+                    height:17px;
+                }
+            }
+        }
     }
 `;
 const DropFilter=styled.div`
