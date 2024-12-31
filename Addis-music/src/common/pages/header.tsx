@@ -2,8 +2,8 @@
 import styled from "@emotion/styled";
 // import { css } from "@emotion/react";
 import '@fontsource/jaini';
-import search from "../../icons/search.png";
-import filter from "../../icons/filter.png";
+import search from "../../assets/icons/search.png";
+import filter from "../../assets/icons/filter.png";
 import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";

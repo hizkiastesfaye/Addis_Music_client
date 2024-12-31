@@ -1,12 +1,12 @@
 /**@jsxImportSource @emotion/react */
 import styled from "@emotion/styled"
 import '@fontsource/jaini';
-import facebook from "../../icons/logo/facebook.png";
-import instagram from "../../icons/logo/instagram.png";
-import twitter from "../../icons/logo/twitter.png";
-import tiktok from "../../icons/logo/tik-tok.png";
-import youtube from "../../icons/logo/youtube.png";
-import copyright from "../../icons/copyright.png"
+import facebook from "../../assets/icons/logo/facebook.png";
+import instagram from "../../assets/icons/logo/instagram.png";
+import twitter from "../../assets/icons/logo/twitter.png";
+import tiktok from "../../assets/icons/logo/tik-tok.png";
+import youtube from "../../assets/icons/logo/youtube.png";
+import copyright from "../../assets/icons/copyright.png"
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
