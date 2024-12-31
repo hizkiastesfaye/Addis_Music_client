@@ -10,6 +10,7 @@ import { css } from '@emotion/react';
 import * as S from "../styles/homeMusic.style"
 import Additional from '../components/additional';
 import MusicForm from '../components/musicForm';
+import MusicList from '../components/musicList';
 
 
 const HomeMusic: React.FC=()=>{
@@ -73,20 +74,13 @@ const HomeMusic: React.FC=()=>{
         setIsEdit(false)
         setSelectedId(null)
     }
-    const song2 = {
-        title: 'adea',
-        artist:'abebaw',
-        album:'manew',
-        genre:'pop'
-    }
-    // const [isSuccess,setIsSuccess] = useState('')
 
     const handleSave=async(event: React.MouseEvent<HTMLButtonElement>)=>{
         event.preventDefault()
-        // console.log(musicDatas.title)
+
         if(isAdd && !isEdit){
             try{
-                const addmusic = await axios.post('http://localhost:3007/add',musicDatasn)
+                const addmusic = await axios.post('http://localhost:3007/add',musicDatas)
                 console.log('addmusic: ',addmusic)
                 dispatch(fetchPostPending())
                 window.alert('successfully music added.')
@@ -115,25 +109,6 @@ const HomeMusic: React.FC=()=>{
             }
         }
     }
-    const handleDelete=async(music:MusicDataStatus)=>{
-        const userConfirm = window.confirm('Are you sure you want to delete this music?')
-            if(userConfirm){
-            try{
-            const deleteMusic = await axios.delete(`http://localhost:3007/delete/${music.id}`)
-            console.log(deleteMusic)
-            dispatch(fetchPostPending())
-            window.alert('successfully deleted.')
-            }
-            catch(err){
-                setPostError(err.response.data.error)
-                console.log('err: ',err)
-                window.alert(`error: ,${err.response.data.error}`)
-            }
-        }
-        else{
-            window.alert('user cancelled the deletion.')
-        }
-    }
     
     return (
         <div style={{minHeight:'60vh'}}>
@@ -144,38 +119,13 @@ const HomeMusic: React.FC=()=>{
                     </div>
                     <h2>Music list</h2>
                     <h3>Music list</h3>
-                    { posts.map((musiListt)=>(
+                    {posts && posts.map((musiListt)=>(
+                        
                     <S.MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}
                         onMouseEnter={()=>setIndexValue(musiListt.id)}
                         onMouseLeave={()=>setIndexValue(null)}>
-                        <div className='list_attribute'>
-                            <div className='arti_alb'>
-                                <p>title: {musiListt.title}</p>
-                                <p>artist: {musiListt.artist}</p>
-                                <p>album:{musiListt.album}</p>
-                            </div>
-                            <div className='arti_alb_sm'>
-                                <p>title: {musiListt.title}</p>
-                                <div>
-                                    <p>artist: {musiListt.artist}</p>
-                                    <p>album:{musiListt.album}</p>
-                                </div>
-                            </div>
-                            <p className='genre'>genre: {musiListt.genre}</p>
-                        </div>
-                        <div className='before_manage'>
-                            {indexValue === musiListt.id &&
-                            <div className='manage'>
-                                <button id={musiListt.id} onClick={()=>handleEdit(musiListt)}>Edit</button>
-                                <div className='image'>
-                                    <img src={deletee} alt='delete icon' onClick={()=>handleDelete(musiListt)}/>
-                                    <button onClick={()=>handleDelete(musiListt)}>Delete</button>
-                                </div>
-                                {/* <button className='delete_button' onClick={()=>handleDelete(musiListt)}>Delete</button> */}
-                            </div>
-                            }
-                        </div>
-                    </S.MusicList>
+                        <MusicList key={musiListt.id} musiListt={musiListt} handleEdit={handleEdit}/>
+                        </S.MusicList>
                 ))}   
                 </S.MusicLists>
                 {(isEdit || isAdd) &&

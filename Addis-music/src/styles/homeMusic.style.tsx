@@ -73,150 +73,94 @@ export const MusicLists = styled.div`
 export const MusicList = styled.div`
 
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
-    padding-bottom:2px;
-    margin-bottom:10px;
-    border-bottom:1px solid rgba(0,0,0,0.1);
-    border-right:1px solid rgba(0,0,0,0.1);
-    min-height:100px;
-    display:flex;
-    justify-content:space-between;
-    background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
-
-    .list_attribute{
-        // background-color:yellow;
-        width:90%;
-        .arti_alb{
-            display:flex;
-            gap:1%;
-            justify-content:left;
-        
-        }
-        .arti_alb_sm{
-            display:none;
-        }
-        p{
-            width:100%;
-            // background-color:red;
-            font-size:16px;
-            color:#525252;
-            padding-left:5px
-        }
-    };
-
-    .before_manage{
-        // background-color:brown;
-        width:130px;
-        padding-top:5px;
-
-        .manage{
-            // background-color:blue;
-            gap:50px;
-            .image{
-                margin-top:5px;
-                width:100%;
-                display:flex;
-                align-items:center;
-                height:40px;
-                button{
-                    display:none;
-                }
-                img{
-                    width:20px;
-                    height:20px;
-                    right:2px;
-                    margin:0 auto;
-                    &:hover{
-                        width:28px;
-                        height:28px;
-                        // background-color:blue;
-                        box-shadow:0 2px 4px green;
-                    }
-                }
-            }
-            .delete_button{
-                display:none;
-            }
-            button{
-                margin-bottom:5px;
-                width:100px;
-                height:35px;
-                border:1px solid green;
-                border-radius:20px;
-                background-color:white;
-
-                color:green;
-                padding-left:20px;
-                padding-right:20px;
-                font-size:20px;
-                &:hover{
-                    cursor:pointer;
-                    background-color:green;
-                    color:white;
-                    font-size:24px;
-                }
-            }
-        }
-    }
     
-    &:hover{
-        // border-bottom:1px solid green;
-        cursor:pointer;
-        box-shadow:0px 2px 3px green;
+    margin-bottom:10px;
 
-
-        p{
-            color:green;
-        }
-    }
-    @media (max-width:750px){
-        height:fit-content;
-        margin-top:10px;
-        // padding-bottom:5px;
+    min-height:fit;
+    // display:flex;
+    // justify-content:space-between;
+    // background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
+    
+    .musicListinside{
+        padding-bottom:2px;
+        border-bottom:1px solid rgba(0,0,0,0.1);
+        border-right:1px solid rgba(0,0,0,0.1);
+        display:flex;
+        justify-content:space-between;
+        min-height:100px;
+        background-color:${(prop)=>(prop.isSelected ? '#D7F4DB': 'white')};
 
         .list_attribute{
+            // background-color:yellow;
+            width:90%;
             .arti_alb{
-                display:none;
+                display:flex;
+                gap:1%;
+                justify-content:left;
+            
             }
             .arti_alb_sm{
-                display:block;
-                // background-color:yellow;
-                div{
-                    display:flex;
-                    justify-content:left;
-                }
-
-            };
+                display:none;
+            }
             p{
-                // background-color:red;
                 width:100%;
-                font-size:14px;
-                font-weight:100;
-                margin-top:3px;
+                // background-color:red;
+                font-size:16px;
+                color:#525252;
+                padding-left:5px
             }
         };
 
         .before_manage{
             // background-color:brown;
-            width:20%;
-            padding-top:0px;
-            height:70px;
+            width:130px;
+            padding-top:5px;
 
             .manage{
                 // background-color:blue;
-                width:100%;
-                
+                gap:50px;
                 .image{
-                    height:30px;
-                    // background-color:green;
+                    margin-top:5px;
+                    width:100%;
+                    display:flex;
+                    align-items:center;
+                    height:40px;
+                    button{
+                        display:none;
+                    }
+                    img{
+                        width:20px;
+                        height:20px;
+                        right:2px;
+                        margin:0 auto;
+                        &:hover{
+                            width:28px;
+                            height:28px;
+                            // background-color:blue;
+                            box-shadow:0 2px 4px green;
+                        }
+                    }
+                }
+                .delete_button{
+                    display:none;
                 }
                 button{
-                    margin-left:2px;
-                    width:80%;
-                    padding-left:10px;
-                    height:20px;
-                    font-size:12px;
+                    margin-bottom:5px;
+                    width:100px;
+                    height:35px;
+                    border:1px solid green;
+                    border-radius:20px;
+                    background-color:white;
+
+                    color:green;
+                    padding-left:20px;
+                    padding-right:20px;
+                    font-size:20px;
                     &:hover{
-                        font-size:14px;
+                        cursor:pointer;
+                        background-color:green;
+                        color:white;
+                        font-size:24px;
                     }
                 }
             }
@@ -226,8 +170,73 @@ export const MusicList = styled.div`
             // border-bottom:1px solid green;
             cursor:pointer;
             box-shadow:0px 2px 3px green;
+
+
             p{
                 color:green;
+            }
+        }
+        @media (max-width:750px){
+            height:fit-content;
+            margin-top:10px;
+            // padding-bottom:5px;
+
+            .list_attribute{
+                .arti_alb{
+                    display:none;
+                }
+                .arti_alb_sm{
+                    display:block;
+                    // background-color:yellow;
+                    div{
+                        display:flex;
+                        justify-content:left;
+                    }
+
+                };
+                p{
+                    // background-color:red;
+                    width:100%;
+                    font-size:14px;
+                    font-weight:100;
+                    margin-top:3px;
+                }
+            };
+
+            .before_manage{
+                // background-color:brown;
+                width:20%;
+                padding-top:0px;
+                height:70px;
+
+                .manage{
+                    // background-color:blue;
+                    width:100%;
+                    
+                    .image{
+                        height:30px;
+                        // background-color:green;
+                    }
+                    button{
+                        margin-left:2px;
+                        width:80%;
+                        padding-left:10px;
+                        height:20px;
+                        font-size:12px;
+                        &:hover{
+                            font-size:14px;
+                        }
+                    }
+                }
+            }
+            
+            &:hover{
+                // border-bottom:1px solid green;
+                cursor:pointer;
+                box-shadow:0px 2px 3px green;
+                p{
+                    color:green;
+                }
             }
         }
     }

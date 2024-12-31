@@ -29,13 +29,15 @@ const searchSlice = createSlice({
             state.filterType = action.payload
         },
         setSearchText(state,action:PayloadAction<string>){
-            state.searchText = action.payload
+            state.searchText = action.payload;
         },
         fetchSeachDatas(state,action:PayloadAction<MusicDataStatus[]>){
-            state.searchDatas=action.payload
+            state.searchDatas=action.payload;
+            state.searchError = null;
         },
         fetchSeachError(state,action:PayloadAction<string>){
             state.searchError=action.payload
+            state.searchDatas = [];
         }
     }
 
