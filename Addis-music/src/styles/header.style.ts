@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
-import '@fontsource/jaini';
+// import '@fontsource/jaini';
 
 export const Container = styled.div`
     // background-color:red;
