@@ -12,6 +12,8 @@ import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError } from "../.
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../../styles/header.style"
+import { BASE_URL } from "../../components/api";
+
 
 export default function Header(){
     // const [filterName,setFilterName] = useState('title')
@@ -41,7 +43,7 @@ export default function Header(){
     const handlesearchSubmit =async()=>{
         dispatch(setSearchText(searchvalues))
         try{
-            const response = await axios.get(`http://localhost:3007/get?${filterType}=${searchvalues}`)
+            const response = await axios.get(`${BASE_URL}/get?${filterType}=${searchvalues}`)
             console.log('response: ',response.data.message)
             dispatch(fetchSeachDatas(response.data.message))
             navigate('/search')

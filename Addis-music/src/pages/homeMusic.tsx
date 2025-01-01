@@ -11,7 +11,7 @@ import * as S from "../styles/homeMusic.style"
 import Additional from '../components/additional';
 import MusicForm from '../components/musicForm';
 import MusicList from '../components/musicList';
-
+import {BASE_URL} from "../components/api"
 
 const HomeMusic: React.FC=()=>{
 
@@ -66,7 +66,7 @@ const HomeMusic: React.FC=()=>{
         setIsEdit(false)
         setIsAdd(true)
         setSelectedId('')
-
+        console.log("base url: ",BASE_URL)
     }
     const handleCancel = ()=>{
         setMusicDatas(initialMusicDatas)
@@ -80,7 +80,9 @@ const HomeMusic: React.FC=()=>{
 
         if(isAdd && !isEdit){
             try{
-                const addmusic = await axios.post('http://localhost:3007/add',musicDatas)
+                
+                // const addmusic = await axios.post('http://localhost:3007/add',musicDatas)
+                const addmusic = await axios.post(`${BASE_URL}/add`,musicDatas)
                 console.log('addmusic: ',addmusic)
                 dispatch(fetchPostPending())
                 window.alert('successfully music added.')
@@ -91,7 +93,7 @@ const HomeMusic: React.FC=()=>{
             catch(err){
                 if (axios.isAxiosError(err)) {
                     setPostError(err.response?.data?.error)
-                    window.alert(`Error: ${error.response?.data?.error || "Something went wrong"}`);
+                    window.alert(`Error: ${err.response?.data?.error || "Something went wrong"}`);
                 }
                 else{
                     console.log("unknown error: ",err)
@@ -102,7 +104,7 @@ const HomeMusic: React.FC=()=>{
         if(isEdit && !isAdd){
             try{
                 console.log('first: ',musicDatas)
-                const putMusic = await axios.put(`http://localhost:3007/update/${musicDatas.id}`,musicDatas)
+                const putMusic = await axios.put(`${BASE_URL}/update/${musicDatas.id}`,musicDatas)
                 dispatch(fetchPostPending())
                 console.log('after: ',putMusic)
                 setMusicDatas(initialMusicDatas)
@@ -113,11 +115,13 @@ const HomeMusic: React.FC=()=>{
                 if (axios.isAxiosError(err)) {
                     setPostError(err.response?.data?.error)
                     // console.log('error: ',err.response.data.error)
-                    window.alert(`Error: ${error.response?.data?.error || "Something went wrong"}`);
+                    window.alert(`Error: ${err.response?.data?.error || "Something went wrong"}`);
 
                 }
                 else{
                     console.log("unknown error: ",err)
+                    setPostError("unknown error: ")
+
                 }
             }
         }

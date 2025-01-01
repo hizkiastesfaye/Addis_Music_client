@@ -1,4 +1,4 @@
-import { configureStore,MiddlewareArray } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import SeachReducer from "./search";
 import DropMenuReducer from './dropDownFilter'
 import createSagaMiddleware from "redux-saga";

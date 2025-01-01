@@ -1,14 +1,19 @@
 import { takeEvery,call,put,all } from "redux-saga/effects";
 import axios from 'axios'
 import { fetchPostPending,fetchPostFailure,fetchPostSuccess } from "./postSlice";
+import { BASE_URL } from "../components/api";
 
-function* fetchPostSagaa(){
+function* fetchPostSagaa(): Generator<any, void, any>{
     try{
-        const response = yield call(axios.get,'http://localhost:3007/get');
+        const response = yield call(axios.get,`${BASE_URL}/get`);
         yield put(fetchPostSuccess(response.data.message))
     }
     catch (error){
-        yield put(fetchPostFailure(error.message))
+        if (error instanceof Error) {
+            yield put(fetchPostFailure(error.message));
+        } else {
+            yield put(fetchPostFailure('An unknown error occurred.'));
+        }
     }
 }
 export function* watchFetchPosts(){

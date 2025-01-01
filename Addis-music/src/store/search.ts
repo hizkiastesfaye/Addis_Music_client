@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from "@reduxjs/toolkit"
 
 interface MusicDataStatus{
-    id:number | null,
+    id:string,
     title:string,
     artist:string,
     album:string,
