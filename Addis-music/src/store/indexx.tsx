@@ -1,5 +1,4 @@
 import { configureStore,MiddlewareArray } from "@reduxjs/toolkit";
-import counterReducer from "./slice";
 import SeachReducer from "./search";
 import DropMenuReducer from './dropDownFilter'
 import createSagaMiddleware from "redux-saga";
@@ -11,7 +10,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
     reducer:{
-        counter: counterReducer,
         isDropFilter: DropMenuReducer,
         posts: postsReducer,
         searchMusic: SeachReducer,
