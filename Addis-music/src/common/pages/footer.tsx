@@ -16,7 +16,7 @@ export default function Footer(){
         <S.Footerr>
         <S.FooterBody>
             <S.FooterDiv1>
-                <div className="name" onClick={()=>navigate('/music')}>
+                <div className="name" onClick={()=>navigate('/')}>
                     <h2>Addis Music</h2>
                     <h4>Addis Music</h4>
                 </div>

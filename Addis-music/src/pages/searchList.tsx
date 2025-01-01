@@ -83,7 +83,7 @@ const SearchList: React.FC=()=>{
                 setMusicDatas(initialMusicDatas)
                 setIsAdd(false)
                 setIsEdit(false)
-                navigate('/music')
+                navigate('/')
             }
             catch(err){
                 // setSearchSaveError(err.response.data.error)

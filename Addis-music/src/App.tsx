@@ -22,7 +22,7 @@ function App() {
       }
       }>
       <Routes>
-        <Route path="music" element={<>
+        <Route path="/" element={<>
           <Header />
           <HomeMusic />
           <Footer />
