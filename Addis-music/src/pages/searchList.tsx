@@ -9,19 +9,19 @@ import MusicForm from '../components/musicForm';
 import MusicList from '../components/musicList';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { fetchSeachDatas, fetchSeachError } from "../store/search";
+// import { fetchSeachDatas, fetchSeachError } from "../store/search";
 
 const SearchList: React.FC=()=>{
 
     interface MusicDataStatus{
-        id:string | null,
+        id:string,
         title:string,
         artist:string,
         album:string,
         genre:string
     }
     const initialMusicDatas:MusicDataStatus = {
-        id:null,
+        id:'',
         title:'',
         artist:'',
         album:'',
@@ -30,17 +30,16 @@ const SearchList: React.FC=()=>{
     const [isEdit,setIsEdit] = useState<boolean>(false);
     const [isAdd,setIsAdd] = useState<boolean>(false)
     const dispatch = useDispatch()
-    const {posts,loading,error} = useSelector((state:RootState)=>state.posts)
     const [musicDatas,setMusicDatas] = useState<MusicDataStatus>(initialMusicDatas)
-    const {filterType,searchText,searchDatas,searchError} = useSelector((state:RootState)=>state.searchMusic)
+    const {searchDatas,searchError} = useSelector((state:RootState)=>state.searchMusic)
     const navigate = useNavigate()
-    const [searchSaveError,setSearchSaveError] = useState('')
+    // const [searchSaveError,setSearchSaveError] = useState('')
 
     useEffect(()=>{
         dispatch(fetchPostPending())
     },[dispatch])
 
-    const handleChange =(e)=>{
+    const handleChange =(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         e.preventDefault()
         const name = e.target.name
         const value = e.target.value
@@ -50,34 +49,34 @@ const SearchList: React.FC=()=>{
             [name]:value
         }))
     }
-    const [selectedId,setSelectedId]=useState(null)
+    const [selectedId,setSelectedId]=useState('')
     const handleEdit = (music:MusicDataStatus)=>{
         setMusicDatas(initialMusicDatas)
         setIsEdit(true)
         setIsAdd(false)
         setMusicDatas(music)
         setSelectedId(music.id)
+        console.log('first: ',musicDatas.id)
     }
     const handleAdd = ()=>{
         setMusicDatas(initialMusicDatas)
         setIsEdit(false)
         setIsAdd(true)
-        setSelectedId(null)
-
+        setSelectedId('')
     }
     const handleCancel = ()=>{
         setMusicDatas(initialMusicDatas)
         setIsAdd(false)
         setIsEdit(false)
-        setSelectedId(null)
+        setSelectedId('')
     }
 
     const handleSave=async(event: React.MouseEvent<HTMLButtonElement>)=>{
         event.preventDefault()
 
             try{
-                console.log('first: ',musicDatas._id)
-                const putMusic = await axios.put(`http://localhost:3007/update/${musicDatas._id}`,musicDatas)
+                console.log('first**: ',musicDatas.id)
+                const putMusic = await axios.put(`http://localhost:3007/update/${musicDatas.id}`,musicDatas)
 
                 dispatch(fetchPostPending())
                 console.log('after: ',putMusic)
@@ -87,8 +86,14 @@ const SearchList: React.FC=()=>{
                 navigate('/music')
             }
             catch(err){
-                setSearchSaveError(err.response.data.error)
-                console.log('error: ',err.response.data.error)
+                // setSearchSaveError(err.response.data.error)
+                if (axios.isAxiosError(err)) {
+                    window.alert(`Error: ${err.response?.data?.error || "Something went wrong"}`);
+                }
+                else{
+                    console.log("unknown error: ",err)
+                    window.alert("An unexpected error occurred.");
+                }
             }
     }
     
@@ -101,11 +106,10 @@ const SearchList: React.FC=()=>{
                     </div>
                     <h2>Search music list</h2>
                     <h3>Search music list</h3>
-                    {loading && <p css={css`font-size:12px; padding-left:30%;`}>loading ....</p>}
                     {searchError && <p css={css`color:red; font-size:12px; padding-left:30%;`}>** Error: {searchError}</p>}
-                    {searchDatas && searchDatas.map((musiListt)=>(        
+                    {searchDatas && searchDatas.map((musiListt:MusicDataStatus)=>(        
                         <S.MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}>
-                            <MusicList key={musiListt.id} musiListt={musiListt} handleEdit={handleEdit}/>
+                            <MusicList itemKey={musiListt.id} musiListt={musiListt} handleEdit={handleEdit}/>
                             </S.MusicList>
                     ))}   
                 </S.MusicLists>
@@ -116,7 +120,8 @@ const SearchList: React.FC=()=>{
                         handleSave={handleSave} 
                         isAdd={isAdd} 
                         isEdit={isEdit} 
-                        musicDatas={musicDatas} 
+                        musicDatas={musicDatas}
+                        postError='' 
                     />
                 }
             </S.MainBody>

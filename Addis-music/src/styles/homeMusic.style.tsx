@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
 
+interface Allprops{
+    isForm?:boolean,
+    isSelected?:boolean,
+    isActive?:boolean,
+    }
+
 export const MainBody = styled.div`
     
     height:100%;
@@ -13,7 +19,7 @@ export const MainBody = styled.div`
     }
 
 `;
-export const MusicLists = styled.div`
+export const MusicLists = styled.div<Allprops>`
     width: 100%;
     min-height: 70vh;
     max-height:100vh;
@@ -70,7 +76,7 @@ export const MusicLists = styled.div`
 
     }
 `;
-export const MusicList = styled.div`
+export const MusicList = styled.div<Allprops>`
 
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
     
@@ -297,7 +303,7 @@ export const MusicForm = styled.div`
         width:90%;
     }
 `;
-export const FormMusicData = styled.form`
+export const FormMusicData = styled.form<Allprops>`
     padding-left:2px;
     // width:100%;
     margin-bottom:20px;

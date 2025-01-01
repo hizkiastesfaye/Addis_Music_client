@@ -5,14 +5,14 @@ import close from "../assets/icons/close.png"
 
 type MusicFormProps={
     handleAdd: ()=>void;
-    handleChange:()=>void;
+    handleChange:(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>void;
     handleCancel:()=>void;
-    handleSave:()=>void;
+    handleSave:(event: React.MouseEvent<HTMLButtonElement>)=>void;
     postError:string;
     isAdd:boolean;
     isEdit:boolean;
     musicDatas:{
-        id: number | null;
+        id: string | null;
         title:string;
         artist:string;
         album:string;

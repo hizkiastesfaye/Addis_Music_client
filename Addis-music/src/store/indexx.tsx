@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore,MiddlewareArray } from "@reduxjs/toolkit";
 import counterReducer from "./slice";
 import SeachReducer from "./search";
 import DropMenuReducer from './dropDownFilter'
@@ -16,7 +16,7 @@ const store = configureStore({
         posts: postsReducer,
         searchMusic: SeachReducer,
     },
-    middleware: (getDefaultMiddleware)=>getDefaultMiddleware({thunk:false}).concat(sagaMiddleware)
+    middleware: (getDefaultMiddleware)=>getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
 });
 
 sagaMiddleware.run(rootSaga)

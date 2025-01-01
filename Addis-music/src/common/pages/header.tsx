@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled";
+// import styled from "@emotion/styled";
 // import { css } from "@emotion/react";
-import '@fontsource/jaini';
+// import "@fontsource/jaini";
 import search from "../../assets/icons/search.png";
 import filter from "../../assets/icons/filter.png";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch,useSelector } from 'react-redux';
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
@@ -17,7 +17,7 @@ export default function Header(){
     // const [filterName,setFilterName] = useState('title')
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {filterType,searchText,searchDatas,searchError} = useSelector((state:RootState)=>state.searchMusic)
+    const {filterType} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const [searchvalues,setSearchValues] = useState('')
     const handleDropFilter=()=>{
@@ -33,7 +33,7 @@ export default function Header(){
         console.log(name)
         dispatch(setFilterBy(name))
     }
-    const handleChangeSearch=(e)=>{
+    const handleChangeSearch=(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         e.preventDefault()
         const {value} = e.target
         setSearchValues(value)
@@ -45,10 +45,16 @@ export default function Header(){
             console.log('response: ',response.data.message)
             dispatch(fetchSeachDatas(response.data.message))
             navigate('/search')
+            setSearchValues('')
         }
         catch(err){
-            console.log('error**: ',err.response.data.error)
-            dispatch(fetchSeachError(err.response.data.error))
+                if (axios.isAxiosError(err)){
+                console.log('error**: ',err.response?.data?.error)
+                dispatch(fetchSeachError(err.response?.data?.error))
+            }
+            else{
+                dispatch(fetchSeachError("unknown Error: *"))
+            }
             navigate('/search')
         }
         

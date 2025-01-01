@@ -1,6 +1,4 @@
 /**@jsxImportSource @emotion/react */
-import styled from "@emotion/styled"
-import '@fontsource/jaini';
 import facebook from "../../assets/icons/logo/facebook.png";
 import instagram from "../../assets/icons/logo/instagram.png";
 import twitter from "../../assets/icons/logo/twitter.png";

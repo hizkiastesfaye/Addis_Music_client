@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit'
+import {PayloadAction, createSlice} from "@reduxjs/toolkit"
 
 interface MusicDataStatus{
     id:number | null,
