@@ -9,7 +9,7 @@ import MusicForm from '../components/musicForm';
 import MusicList from '../components/musicList';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-// import { fetchSeachDatas, fetchSeachError } from "../store/search";
+import { BASE_URL } from '../components/api';
 
 const SearchList: React.FC=()=>{
 
@@ -76,8 +76,7 @@ const SearchList: React.FC=()=>{
 
             try{
                 console.log('first**: ',musicDatas.id)
-                const putMusic = await axios.put(`http://localhost:3007/update/${musicDatas.id}`,musicDatas)
-
+                const putMusic = await axios.put(`${BASE_URL}/update/${musicDatas.id}`,musicDatas)
                 dispatch(fetchPostPending())
                 console.log('after: ',putMusic)
                 setMusicDatas(initialMusicDatas)
