@@ -16,12 +16,22 @@ import { BASE_URL } from "../../components/api";
 
 
 export default function Header(){
+    interface MusicDataStatus{
+        id:string,
+        title:string,
+        artist:string,
+        album:string,
+        genre:string
+    }
     // const [filterName,setFilterName] = useState('title')
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {filterType} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
+    const {posts} = useSelector((state:RootState)=>state.posts)
     const [searchvalues,setSearchValues] = useState('')
+    const [filteredMusic,setFilteredMusic] = useState<MusicDataStatus[]>([])
+    const [isSearchDrop,setIsSearchDrop] =useState<boolean>(false)
     const handleDropFilter=()=>{
         if(isDropMenu){
             dispatch(dropMenuFalse())
@@ -39,6 +49,17 @@ export default function Header(){
         e.preventDefault()
         const {value} = e.target
         setSearchValues(value)
+        console.log(filteredMusic)
+        if(value !== ''){
+            setIsSearchDrop(true)
+            const regex = new RegExp(`^${value}`, "i"); // Matches the start of the string, case-insensitively
+            const filtered = posts.filter((music) => regex.test(music[filterType]));
+            setFilteredMusic(filtered);
+        }
+        else{
+            setIsSearchDrop(false)
+            setFilteredMusic([])
+        }
     }
     const handlesearchSubmit =async()=>{
         dispatch(setSearchText(searchvalues))
@@ -71,6 +92,22 @@ export default function Header(){
                             <img src={search} alt="search icons" />
                         </S.Image1>
                         <input type="text" placeholder="Search for Music" id='searchid' name='searchName' value={searchvalues} onChange={handleChangeSearch}/>
+                        { isSearchDrop &&
+                        <div>
+                            {filteredMusic.length > 0 && (
+                            filteredMusic.map((music:MusicDataStatus) => (
+                                <div key={music.id}>
+                                    
+                                <p>{music[filterType]}</p>
+                                {/* <p>Album: {music.album}</p>
+                                <p>Artist: {music.artist}</p>
+                                <p>Genre: {music.genre}</p> */}
+                                </div>
+                            ))
+                            )}
+                        </div>
+                        }
+
                     </S.DivSearch1>
                     <S.DivSearch2>
                         <button onClick={handleDropFilter}>
