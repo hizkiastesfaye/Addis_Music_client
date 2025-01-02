@@ -31,7 +31,7 @@ const SearchList: React.FC=()=>{
     const [isAdd,setIsAdd] = useState<boolean>(false)
     const dispatch = useDispatch()
     const [musicDatas,setMusicDatas] = useState<MusicDataStatus>(initialMusicDatas)
-    const {searchDatas,searchError} = useSelector((state:RootState)=>state.searchMusic)
+    const {searchDatas,searchError,searchText} = useSelector((state:RootState)=>state.searchMusic)
     const navigate = useNavigate()
     // const [searchSaveError,setSearchSaveError] = useState('')
 
@@ -103,8 +103,8 @@ const SearchList: React.FC=()=>{
                     <div className='add_button'>
                         <button onClick={handleAdd}>Add music</button>
                     </div>
-                    <h2>Search music list</h2>
-                    <h3>Search music list</h3>
+                    <h2>Search music list: {searchText}</h2>
+                    <h3>Search music list: {searchText}</h3>
                     {searchError && <p css={css`color:red; font-size:12px; padding-left:30%;`}>** Error: {searchError}</p>}
                     {searchDatas && searchDatas.map((musiListt:MusicDataStatus)=>(        
                         <S.MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}>

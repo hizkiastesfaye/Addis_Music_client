@@ -18,6 +18,33 @@ export const Container = styled.div`
   
     }
 `;
+export const changeSearch = styled.div`
+    border:1px solid black;
+    border-radius:10px;
+    position:absolute;
+    top:50px;
+    width:40%;
+    background-color:white;
+    center:10px;
+    top:90px;
+
+    ul{
+        padding-left:0;
+
+    }
+    li{
+        list-style-type: none;
+        background-color:#F0F0F0;
+        margin-bottom:7px;
+        width:full;
+        height:32px;
+
+        &:hover{
+            color:green;
+            cursor:pointer;
+        }
+    }
+`;
 export const DivSearch = styled.div`
     display:flex;
     // background-color:green;

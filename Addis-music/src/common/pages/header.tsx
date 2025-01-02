@@ -8,7 +8,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
-import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError } from "../../store/search";
+import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError, fetchCountSearch } from "../../store/search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../../styles/header.style"
@@ -26,12 +26,13 @@ export default function Header(){
     // const [filterName,setFilterName] = useState('title')
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {filterType} = useSelector((state:RootState)=>state.searchMusic)
+    const {filterType,countSearch,searchDatas} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const {posts} = useSelector((state:RootState)=>state.posts)
     const [searchvalues,setSearchValues] = useState('')
     const [filteredMusic,setFilteredMusic] = useState<MusicDataStatus[]>([])
     const [isSearchDrop,setIsSearchDrop] =useState<boolean>(false)
+    const [ccountSearch,setCountSearch]= useState<number | null>(null)
     const handleDropFilter=()=>{
         if(isDropMenu){
             dispatch(dropMenuFalse())
@@ -55,6 +56,7 @@ export default function Header(){
             const regex = new RegExp(`^${value}`, "i"); // Matches the start of the string, case-insensitively
             const filtered = posts.filter((music) => regex.test(music[filterType]));
             setFilteredMusic(filtered);
+            
         }
         else{
             setIsSearchDrop(false)
@@ -65,8 +67,10 @@ export default function Header(){
         dispatch(setSearchText(searchvalues))
         try{
             const response = await axios.get(`${BASE_URL}/get?${filterType}=${searchvalues}`)
-            console.log('response: ',response.data.message)
+            console.log('response: ',response.data.message.length)
             dispatch(fetchSeachDatas(response.data.message))
+            setCountSearch(response.data.message.length)
+            dispatch(fetchCountSearch(response.data.message.length))
             navigate('/search')
             setSearchValues('')
         }
@@ -93,19 +97,23 @@ export default function Header(){
                         </S.Image1>
                         <input type="text" placeholder="Search for Music" id='searchid' name='searchName' value={searchvalues} onChange={handleChangeSearch}/>
                         { isSearchDrop &&
-                        <div>
+                        <S.changeSearch>
                             {filteredMusic.length > 0 && (
                             filteredMusic.map((music:MusicDataStatus) => (
-                                <div key={music.id}>
+                                <ul key={music.id}>
                                     
-                                <p>{music[filterType]}</p>
-                                {/* <p>Album: {music.album}</p>
-                                <p>Artist: {music.artist}</p>
-                                <p>Genre: {music.genre}</p> */}
-                                </div>
+                                    <li onClick={()=>{
+                                        setSearchValues(music[filterType]); 
+                                        setIsSearchDrop(false);
+                                        }}>
+                                        {filterType === 'artist' ? `${music.artist} : ${music.title}` : `${music[filterType]} : ${music.artist}`  }</li>
+                                    {/* <p>Album: {music.album}</p>
+                                    <p>Artist: {music.artist}</p>
+                                    <p>Genre: {music.genre}</p> */}
+                                </ul>
                             ))
                             )}
-                        </div>
+                        </S.changeSearch>
                         }
 
                     </S.DivSearch1>

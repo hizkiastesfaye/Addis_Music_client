@@ -12,6 +12,7 @@ interface SearchState{
     searchText:string,
     searchDatas:MusicDataStatus[]
     searchError:string | null;
+    countSearch:number | null;
 }
 
 const initialSearchState:SearchState= {
@@ -19,6 +20,7 @@ const initialSearchState:SearchState= {
     searchText:'',
     searchDatas:[],
     searchError:null,
+    countSearch:null,
 }
 
 const searchSlice = createSlice({
@@ -38,10 +40,13 @@ const searchSlice = createSlice({
         fetchSeachError(state,action:PayloadAction<string>){
             state.searchError=action.payload
             state.searchDatas = [];
-        }
+        },
+        fetchCountSearch(state,action:PayloadAction<number | null>){
+            state.countSearch=action.payload;
+        },
     }
 
 })
 
-export const {setFilterBy,setSearchText,fetchSeachDatas,fetchSeachError} = searchSlice.actions
+export const {setFilterBy,setSearchText,fetchSeachDatas,fetchSeachError,fetchCountSearch} = searchSlice.actions
 export default searchSlice.reducer
