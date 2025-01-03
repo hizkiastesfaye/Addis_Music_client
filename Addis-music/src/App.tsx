@@ -8,6 +8,7 @@ import { dropMenuFalse } from "./store/dropDownFilter"
 import { RootState } from "./store/indexx";
 import AboutUs from "./pages/aboutUs"
 import SearchList from "./pages/searchList"
+import MusicStatistic from "./pages/musicStatistic"
 
 
 function App() {
@@ -37,6 +38,12 @@ function App() {
           <AboutUs />
           <Footer />
           </>} />
+          <Route path="statistic" element={<>
+          <Header />
+          <MusicStatistic />
+          <Footer />
+          </>} />
+          
       </Routes>
     </div>
   )

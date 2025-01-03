@@ -33,6 +33,7 @@ export default function Header(){
     const [filteredMusic,setFilteredMusic] = useState<MusicDataStatus[]>([])
     const [isSearchDrop,setIsSearchDrop] =useState<boolean>(false)
     const [ccountSearch,setCountSearch]= useState<number | null>(null)
+    const [uniqueValue,setUniqueValue] = useState<Set<srting>>(new Set())
     const handleDropFilter=()=>{
         if(isDropMenu){
             dispatch(dropMenuFalse())
@@ -56,6 +57,10 @@ export default function Header(){
             const regex = new RegExp(`^${value}`, "i"); // Matches the start of the string, case-insensitively
             const filtered = posts.filter((music) => regex.test(music[filterType]));
             setFilteredMusic(filtered);
+            const newListSet = new Set(filtered.map((musi)=>musi[filterType]))
+            setUniqueValue(newListSet)
+            console.log(newListSet)
+
             
         }
         else{
@@ -63,11 +68,16 @@ export default function Header(){
             setFilteredMusic([])
         }
     }
+    const handleListClick = (music:string)=>{
+        setSearchValues(music); 
+        setIsSearchDrop(false);
+    }
     const handlesearchSubmit =async()=>{
         dispatch(setSearchText(searchvalues))
+        setIsSearchDrop(false);
         try{
             const response = await axios.get(`${BASE_URL}/get?${filterType}=${searchvalues}`)
-            console.log('response: ',response.data.message.length)
+            console.log('response: ',response.data.message)
             dispatch(fetchSeachDatas(response.data.message))
             setCountSearch(response.data.message.length)
             dispatch(fetchCountSearch(response.data.message.length))
@@ -99,17 +109,12 @@ export default function Header(){
                         { isSearchDrop &&
                         <S.changeSearch>
                             {filteredMusic.length > 0 && (
-                            filteredMusic.map((music:MusicDataStatus) => (
-                                <ul key={music.id}>
-                                    
-                                    <li onClick={()=>{
-                                        setSearchValues(music[filterType]); 
-                                        setIsSearchDrop(false);
-                                        }}>
-                                        {filterType === 'artist' ? `${music.artist} : ${music.title}` : `${music[filterType]} : ${music.artist}`  }</li>
-                                    {/* <p>Album: {music.album}</p>
-                                    <p>Artist: {music.artist}</p>
-                                    <p>Genre: {music.genre}</p> */}
+                            [...uniqueValue].map((music:string,index) => (
+                                <ul key={index}>    
+                                    <li onClick={()=>handleListClick(music)}>
+                                        {/* {filterType === 'artist' ? `${music.artist} : ${music.title}` : `${music[filterType]} : ${music.artist}`  }</li> */}
+                                        {/* {music[filterType]}</li> */}
+                                        {music}</li>
                                 </ul>
                             ))
                             )}
