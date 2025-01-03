@@ -138,12 +138,14 @@ const HomeMusic: React.FC=()=>{
                     <h3>Music list</h3>
                     {loading && <p css={css`font-size:12px; padding-left:30%;`}>loading ....</p>}
                     {error && <p css={css`color:red; font-size:12px; padding-left:30%;`}>** Error: {error}</p>}
-                    {posts && posts.map((musiListt:MusicDataStatus)=>(
-                        
-                    <S.MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}>
-                        <MusicList itemKey={musiListt.id} musiListt={musiListt} handleEdit={handleEdit}/>
-                    </S.MusicList>
-                ))}   
+                    {
+                        posts && posts.map((musiListt:MusicDataStatus)=>(
+                            
+                        <S.MusicList key={musiListt.id} isSelected={selectedId === musiListt.id}>
+                            <MusicList itemKey={musiListt.id} musiListt={musiListt} handleEdit={handleEdit}/>
+                        </S.MusicList>
+                        ))
+                    }   
                 </S.MusicLists>
                 {(isEdit || isAdd) &&
                     <MusicForm handleAdd={handleAdd} 
