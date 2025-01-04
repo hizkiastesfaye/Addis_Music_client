@@ -99,7 +99,10 @@ export default function Header(){
     return (
         <>
             <S.Container>
-                <h2 onClick={()=>navigate('/')}>Addis Music</h2>
+                <div className="title">
+                    <h2 onClick={()=>navigate('/')}>Addis Music</h2>
+                    <button onClick={()=>navigate('/statistic')}>Statistic</button>
+                </div>
                 <S.DivSearch>
                     <S.DivSearch1>
                         <S.Image1 onClick={handlesearchSubmit}>

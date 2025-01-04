@@ -7,16 +7,39 @@ export const Container = styled.div`
     width:100%;
     box-shadow:0px 4px 6px rgba(0,0,0,0.1);
     padding-bottom:10px;
-    
-    h2{
-        margin-left:7%;
-        color:green;
-        font-family:Jaini;
-        margin-top:0px;
-        // background-color:yellow;
-        cursor:pointer;
+
+    .title{
+        // background-color:red;
+        margin:0 7%;
+        display:flex;
+        justify-content:space-between;
+        padding-top:5px;
+
+        h2{
+            
+            color:green;
+            font-family:Jaini;
+            margin-top:0px;
+            // background-color:yellow;
+            cursor:pointer;
   
+        }
+        button{
+            background-color:white;
+            border: 1px solid white;
+            color:green;
+            border-radius: 50px;
+            width:150px;
+            height:30px;
+            font-size:20px;
+
+            &:hover{
+                border: 1px solid green;
+                cursor:
+            }
+        }
     }
+    
 `;
 export const changeSearch = styled.div`
     border:1px solid black;
