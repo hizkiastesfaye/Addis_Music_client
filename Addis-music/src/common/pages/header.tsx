@@ -8,7 +8,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { RootState } from "../../store/indexx";
 import { dropMenuTrue,dropMenuFalse } from "../../store/dropDownFilter";
 import { useState } from "react";
-import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError, fetchCountSearch } from "../../store/search";
+import { setFilterBy,setSearchText,fetchSeachDatas, fetchSeachError} from "../../store/search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../../styles/header.style"
@@ -26,14 +26,14 @@ export default function Header(){
     // const [filterName,setFilterName] = useState('title')
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {filterType,countSearch,searchDatas} = useSelector((state:RootState)=>state.searchMusic)
+    const {filterType} = useSelector((state:RootState)=>state.searchMusic)
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const {posts} = useSelector((state:RootState)=>state.posts)
     const [searchvalues,setSearchValues] = useState('')
     const [filteredMusic,setFilteredMusic] = useState<MusicDataStatus[]>([])
     const [isSearchDrop,setIsSearchDrop] =useState<boolean>(false)
-    const [ccountSearch,setCountSearch]= useState<number | null>(null)
-    const [uniqueValue,setUniqueValue] = useState<Set<srting>>(new Set())
+    // const [ccountSearch,setCountSearch]= useState<number | null>(null)
+    const [uniqueValue,setUniqueValue] = useState<Set<string>>(new Set())
     const handleDropFilter=()=>{
         if(isDropMenu){
             dispatch(dropMenuFalse())
@@ -79,8 +79,7 @@ export default function Header(){
             const response = await axios.get(`${BASE_URL}/get?${filterType}=${searchvalues}`)
             console.log('response: ',response.data.message)
             dispatch(fetchSeachDatas(response.data.message))
-            setCountSearch(response.data.message.length)
-            dispatch(fetchCountSearch(response.data.message.length))
+            // dispatch(fetchCountSearch(response.data.message.length))
             navigate('/search')
             setSearchValues('')
         }
