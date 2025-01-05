@@ -55,6 +55,7 @@ const HomeMusic: React.FC=()=>{
     }
     const [selectedId,setSelectedId]=useState('')
     const handleEdit = (music:MusicDataStatus)=>{
+        console.log(posts)
         setMusicDatas(initialMusicDatas)
         setIsEdit(true)
         setIsAdd(false)

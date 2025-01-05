@@ -4,6 +4,7 @@ import deletee from '../assets/icons/delete.png'
 import axios from 'axios'
 import { fetchPostPending } from '../store/postSlice';
 import { useState } from 'react';
+import {BASE_URL} from "../components/api"
 
 type MusicDataPropStatus={
     id: string;
@@ -36,7 +37,7 @@ const MusicList: React.FC<MusicListProps>=({handleEdit,musiListt, itemKey})=>{
         const userConfirm = window.confirm('Are you sure you want to delete this music?')
             if(userConfirm){
                 try{
-                    const deleteMusic = await axios.delete(`http://localhost:3007/delete/${music.id}`)
+                    const deleteMusic = await axios.delete(`${BASE_URL}/delete/${music.id}`)
                     console.log(deleteMusic)
                     dispatch(fetchPostPending())
                     window.alert('successfully deleted.')
