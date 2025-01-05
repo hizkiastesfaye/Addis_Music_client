@@ -3,12 +3,28 @@ import axios from 'axios'
 import * as S from "../styles/musicStatistic.style"
 import { BASE_URL } from "../components/api"
 export default function MusicStatistic(){
-    const [statisticDatas,setStatisticDatas] = useState([])
+    interface StatisticDataStatus {
+        artistId: string;
+        artist:string;
+        number:number;
+        songNumber:number;
+        albums: {
+          albumId: string;
+          albumName: string;
+          number: number;
+          songs: {
+            songId: string;
+            songTitle: string;
+          }[];
+        }[];
+      }
+
+    const [statisticDatas,setStatisticDatas] = useState<StatisticDataStatus[]>([])
     const [totalSongs,setTotalSongs] = useState<number>(0)
     const [uniqueArtist,setUniqueArtist] = useState<number>(0)
     const [uniqueAlbums,setUniqueAlbums] = useState<number>(0)
     const [uniqueGenres,setUniqueGenres] = useState<number>(0)
-    const [SongsPerGenre,setSongsPerGenre] = useState({})
+    const [SongsPerGenre,setSongsPerGenre] = useState<Record<string, number>>({})
     const [isAlbumSong,setIsAlbumSong] = useState<boolean>(false)
     const [indexAlbumSong,setIndexAlbumSong] = useState<string>('')
     const [indexArtistSong,setIndexArtistSong] = useState<string>('')
@@ -151,3 +167,4 @@ export default function MusicStatistic(){
         </S.Container>
         </S.Main>
 }
+

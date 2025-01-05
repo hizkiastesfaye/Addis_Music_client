@@ -47,7 +47,7 @@ export const ArtistList= styled.div<AllProps>`
         // display:flex;
         justify-content:left;
         margin:0 10px;
-        background-color:red;
+        // background-color:red;
         gap:2px;
 
         .colArtist{

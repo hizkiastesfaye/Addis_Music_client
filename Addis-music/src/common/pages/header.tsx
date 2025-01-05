@@ -27,11 +27,13 @@ export default function Header(){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {filterType} = useSelector((state:RootState)=>state.searchMusic)
+    const [filterT,setFilterT]=useState<keyof MusicDataStatus>('title')
     const isDropMenu = useSelector((state:RootState)=>state.isDropFilter.isDropMenu)
     const {posts} = useSelector((state:RootState)=>state.posts)
     const [searchvalues,setSearchValues] = useState('')
     const [filteredMusic,setFilteredMusic] = useState<MusicDataStatus[]>([])
     const [isSearchDrop,setIsSearchDrop] =useState<boolean>(false)
+
     // const [ccountSearch,setCountSearch]= useState<number | null>(null)
     const [uniqueValue,setUniqueValue] = useState<Set<string>>(new Set())
     const handleDropFilter=()=>{
@@ -46,6 +48,7 @@ export default function Header(){
     const handleFilter=(name:string)=>{
         console.log(name)
         dispatch(setFilterBy(name))
+        setFilterT(name as keyof MusicDataStatus)
     }
     const handleChangeSearch=(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         e.preventDefault()
@@ -55,11 +58,11 @@ export default function Header(){
         if(value !== ''){
             setIsSearchDrop(true)
             const regex = new RegExp(`^${value}`, "i"); // Matches the start of the string, case-insensitively
-            const filtered = posts.filter((music) => regex.test(music[filterType]));
+            const filtered = posts.filter((music:MusicDataStatus) => regex.test(music[filterT]));
             setFilteredMusic(filtered);
-            const newListSet = new Set(filtered.map((musi)=>musi[filterType]))
+            const newListSet = new Set(filtered.map((musi)=>musi[filterT]))
             setUniqueValue(newListSet)
-            console.log(newListSet)
+            console.log(filterT)
 
             
         }
