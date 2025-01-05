@@ -1,6 +1,6 @@
 # Addis_Music_client
 
-The frontend of the Addis Music Management Full-Stack Application is built with React.js and TypeScript. 
+The frontend of the Addis Music Management Full-Stack Application is built with React.js and TypeScript.   
 It provides an intuitive and responsive interface for users to manage and visualize their music collection. 
 The frontend communicates seamlessly with the backend REST API to perform CRUD operations and display statistical insights.
 
