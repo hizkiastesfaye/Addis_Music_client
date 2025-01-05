@@ -17,7 +17,7 @@ Clone the Repository: https://github.com/hizkiastesfaye/Addis_Music_client.git
 ## bash  
 Copy code  
 ```git clone https://github.com/hizkiastesfaye/Addis_Music_client.git```  
-```cd Addis-music/ ```  
+```cd Addis_Music_client/Addis-music/ ```  
 Install Dependencies:  
 
 ## bash  
